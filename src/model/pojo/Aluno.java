@@ -1,22 +1,18 @@
 package model.pojo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Fabiano
  */
 @Entity
-@Table(name = "Alunos")
-public class Aluno extends Pessoa {
-
+public class Aluno extends Pessoa implements Serializable {
     private final long matricula;
     private ArrayList<Turma> turmas;
 

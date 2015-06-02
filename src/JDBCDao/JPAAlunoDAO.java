@@ -18,11 +18,12 @@ import model.pojo.Aluno;
  *
  * @author Fabiano
  */
-public class JDBCAlunoDAO implements AlunoDao{
-    List<Aluno> listaAlunos ;
-    
-    public void addAluno(Aluno a){
-        if(this.listaAlunos == null){
+public class JPAAlunoDAO implements AlunoDao {  
+    List<Aluno> listaAlunos;
+
+    @Override
+    public void addAluno(Aluno a) {
+        if (this.listaAlunos == null) {
             this.listaAlunos = new ArrayList<>();
         }
         this.listaAlunos.add(a);
@@ -30,26 +31,24 @@ public class JDBCAlunoDAO implements AlunoDao{
 
     @Override
     public void salvar() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
-        EntityManager manager = factory.createEntityManager();
-        EntityTransaction transaction = manager.getTransaction();
-        transaction.begin();
-        for(Aluno x : this.listaAlunos){
-            manager.persist(x);
-            transaction.commit();
+        JPAUtil.getEntityManager().getTransaction().begin();
+        for (Aluno x : this.listaAlunos) {
+            JPAUtil.getEntityManager().persist(x);
+            JPAUtil.getEntityManager().getTransaction().commit();
         }
-        manager.close();
-        factory.close();
+        JPAUtil.getEntityManager().close();
     }
 
     @Override
     public List<Aluno> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Aluno> alunos;
+        JPAUtil.getEntityManager().close();
+        return null;
     }
 
     @Override
     public Aluno getByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

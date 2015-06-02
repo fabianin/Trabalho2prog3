@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Disciplina extends PojoBase {
+public class Disciplina extends GenericEntity {
 
     private final String nome;
     private final String ementa;

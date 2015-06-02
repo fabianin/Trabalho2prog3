@@ -2,7 +2,7 @@ package model.pojo;
 
 import java.util.Objects;
 
-public class Falta extends PojoBase {
+public class Falta extends GenericEntity {
 
     private final long numFaltas;
     private final Aluno aluno;

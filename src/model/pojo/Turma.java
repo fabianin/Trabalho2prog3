@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Turma extends PojoBase {
+public class Turma extends GenericEntity {
 
     private final long ano;
     private final long periodo;

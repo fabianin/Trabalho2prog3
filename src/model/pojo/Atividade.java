@@ -5,9 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Atividade extends PojoBase {
+@Entity
+@Table(name = "Atividades")
+public class Atividade extends GenericEntity {
 
+    @Id @GeneratedValue
+    private Long id;
     private final String nome;
     private final String data;
     private final double valor;
