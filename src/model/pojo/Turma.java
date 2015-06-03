@@ -5,7 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Turma extends GenericEntity {
 
     private final long ano;
@@ -13,11 +18,26 @@ public class Turma extends GenericEntity {
     private final String local;
     private final long numVagas;
     private final String horario;
+    @ManyToOne
     private final Disciplina disciplina;
+    @ManyToOne
     private final Professor professor;
+    @ManyToMany
     private ArrayList<Aluno> alunos;
+    @OneToMany
     private ArrayList<Atividade> atividades;
+    @OneToMany
     private ArrayList<Falta> faltas;
+
+    public Turma() {
+        this.ano = 0;
+        this.periodo = 0;
+        this.local = null;
+        this.numVagas = 0;
+        this.horario = null;
+        this.disciplina = null;
+        this.professor = null;
+    }
 
     public Turma(long ano, long periodo, String local, long numVagas, String horario, Disciplina disciplina, Professor professor) {
         Objects.requireNonNull(horario);

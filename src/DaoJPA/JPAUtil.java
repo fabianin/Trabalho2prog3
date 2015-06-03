@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JDBCDao;
+package DaoJPA;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,8 +14,11 @@ import javax.persistence.Persistence;
  * @author Fabiano
  */
 public class JPAUtil {
-    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
+    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("trabPU");
 
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return factory;
+    }
     public static EntityManager getEntityManager() {
         return factory.createEntityManager();
     }

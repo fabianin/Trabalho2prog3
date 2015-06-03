@@ -5,7 +5,11 @@
  */
 package model.pojo;
 
+import DaoJPA.JPAUtil;
 import java.io.Serializable;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +23,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class GenericEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     public Long getId() {
@@ -27,6 +31,16 @@ public abstract class GenericEntity implements Serializable {
     }
 
     public GenericEntity() {
+    }
+    
+    public void salva(){
+        EntityManagerFactory factory = JPAUtil.getEntityManagerFactory();
+        EntityManager manager = JPAUtil.getEntityManager();
+        EntityTransaction tran = manager.getTransaction();
+        tran.begin();
+        manager.persist(this);
+        tran.commit();
+        manager.close();
     }
     
 

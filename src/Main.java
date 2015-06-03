@@ -1,5 +1,6 @@
 
-import JDBCDao.JPAAlunoDAO;
+import DaoJPA.AlunoJpaDao;
+import DaoJPA.JPAUtil;
 import model.dao.AlunoDao;
 import model.pojo.Aluno;
 
@@ -15,9 +16,8 @@ import model.pojo.Aluno;
 public class Main {
 
     public static void main(String[] args) {
-        AlunoDao JPAalunos = new JPAAlunoDAO();
-       Aluno a = new Aluno(23, "fabiano", 23);
-       JPAalunos.addAluno(a);
-       JPAalunos.salvar();
+        Aluno a = new Aluno(23, "aaaa", 23);
+        AlunoDao alunoDaoJpa = new AlunoJpaDao(JPAUtil.getEntityManagerFactory());
+        alunoDaoJpa.create(a);
     }
 }

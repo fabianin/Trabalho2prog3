@@ -1,11 +1,18 @@
 package model.pojo;
 
+import DaoJPA.JPAUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
@@ -13,7 +20,9 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Aluno extends Pessoa implements Serializable {
+    @OneToOne
     private final long matricula;
+    @ManyToMany
     private ArrayList<Turma> turmas;
 
     public Aluno() {

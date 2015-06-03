@@ -1,7 +1,8 @@
 package model.pojo;
 
 import java.util.Objects;
-
+import javax.persistence.Entity;
+@Entity
 public class Falta extends GenericEntity {
 
     private final long numFaltas;

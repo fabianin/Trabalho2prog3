@@ -14,14 +14,14 @@ import model.pojo.Aluno;
  *
  * @author Fabiano
  */
-public interface AlunoDao {
+public interface AtividadeDao {
     public EntityManager getEntityManager();
     public void create(Aluno aluno);
     public void edit(Aluno aluno) throws NonexistentEntityException, Exception;
     public void destroy(Long id) throws NonexistentEntityException;
-    public List<Aluno> findAlunoEntities();
-    public List<Aluno> findAlunoEntities(int maxResults, int firstResult);
-    public Aluno findAluno(Long id);
-    public int getAlunoCount();
+    public List<Aluno> findAtividadeEntities();
+    public List<Aluno> findAtividadeEntities(int maxResults, int firstResult);
+    public Aluno findAtividade(Long id);
+    public int getAtividadeCount();
     
 }

@@ -1,7 +1,9 @@
 package model.pojo;
 
 import java.util.Objects;
+import javax.persistence.Entity;
 
+@Entity
 public class Nota extends GenericEntity {
 
 	private final double valorObtido;
