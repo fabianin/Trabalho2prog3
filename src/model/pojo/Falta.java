@@ -2,10 +2,13 @@ package model.pojo;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 @Entity
 public class Falta extends GenericEntity {
 
     private final long numFaltas;
+    
+    @OneToOne
     private final Aluno aluno;
 
     public Falta(long numFaltas, Aluno aluno) {

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -14,10 +15,8 @@ public class Professor extends Pessoa {
     private final String departamento;
     @OneToMany(mappedBy = "professor")
     private ArrayList<Turma> turmas;
-    @OneToMany
+    @ManyToMany(mappedBy = "professoresAptos")
     private ArrayList<Disciplina> disciplinasApto;
-    @OneToOne(mappedBy = "professor")
-    private Turma turma;
 
     public Professor(String departamento, String nome, long cpf) {
         super(nome, cpf);

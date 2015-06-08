@@ -5,22 +5,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "Atividades")
 public class Atividade extends GenericEntity {
 
     @Id @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private final String nome;
+    @Column(nullable = false)
     private final String data;
     private final double valor;
+    @Column(nullable = false)
     private final String tipo;
+    @ManyToOne
     private final Turma turma;
+    @OneToMany
     private ArrayList<Nota> notas;
 
     public Atividade(String nome, String data, long valor, String tipo, Turma turma) {

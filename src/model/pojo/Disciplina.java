@@ -5,13 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 @Entity
 public class Disciplina extends GenericEntity {
 
     private final String nome;
     private final String ementa;
     private final long cargaHoraria;
+    @OneToMany(mappedBy = "disciplinas")
     private ArrayList<Turma> turmas;
+    @ManyToMany
     private ArrayList<Professor> professoresAptos;
 
     public Disciplina(String nome, String ementa, long cargaHoraria) throws IllegalArgumentException {

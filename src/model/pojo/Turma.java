@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -15,11 +16,12 @@ public class Turma extends GenericEntity {
 
     private final long ano;
     private final long periodo;
+    @Column(name = "local", nullable = false)
     private final String local;
     private final long numVagas;
     private final String horario;
     @ManyToOne
-    private final Disciplina disciplina;
+    private final Disciplina disciplinas;
     @ManyToOne
     private final Professor professor;
     @ManyToMany
@@ -28,6 +30,8 @@ public class Turma extends GenericEntity {
     private ArrayList<Atividade> atividades;
     @OneToMany
     private ArrayList<Falta> faltas;
+    @OneToMany(mappedBy = "turma")
+    private ArrayList<Atividade> atividade;
 
     public Turma() {
         this.ano = 0;
@@ -35,7 +39,7 @@ public class Turma extends GenericEntity {
         this.local = null;
         this.numVagas = 0;
         this.horario = null;
-        this.disciplina = null;
+        this.disciplinas = null;
         this.professor = null;
     }
 
@@ -51,7 +55,7 @@ public class Turma extends GenericEntity {
         this.local = local;
         this.numVagas = numVagas;
         this.horario = horario;
-        this.disciplina = disciplina;
+        this.disciplinas = disciplina;
         this.professor = professor;
     }
 
@@ -76,7 +80,7 @@ public class Turma extends GenericEntity {
     }
 
     public Disciplina getDisciplina() {
-        return disciplina;
+        return disciplinas;
     }
 
     public Professor getProfessor() {
