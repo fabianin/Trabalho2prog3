@@ -7,39 +7,51 @@ package DaoJPA;
 
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.dao.AlunoDao;
+import model.pojo.Turma;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import model.pojo.Aluno;
 
 /**
  *
  * @author Fabiano
  */
-public class AlunoJpaDao implements Serializable, AlunoDao {
+public class AlunoJpaDao implements Serializable {
 
     public AlunoJpaDao(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
-    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    @Override
     public void create(Aluno aluno) {
+        if (aluno.getTurmas() == null) {
+            aluno.setTurmas(new ArrayList<Turma>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Turma> attachedTurmas = new ArrayList<Turma>();
+            for (Turma turmasTurmaToAttach : aluno.getTurmas()) {
+                turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
+                attachedTurmas.add(turmasTurmaToAttach);
+            }
+            aluno.setTurmas(attachedTurmas);
             em.persist(aluno);
+            for (Turma turmasTurma : aluno.getTurmas()) {
+                turmasTurma.getAlunos().add(aluno);
+                turmasTurma = em.merge(turmasTurma);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -48,13 +60,34 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
         }
     }
 
-    @Override
     public void edit(Aluno aluno) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Aluno persistentAluno = em.find(Aluno.class, aluno.getId());
+            List<Turma> turmasOld = persistentAluno.getTurmas();
+            List<Turma> turmasNew = aluno.getTurmas();
+            List<Turma> attachedTurmasNew = new ArrayList<Turma>();
+            for (Turma turmasNewTurmaToAttach : turmasNew) {
+                turmasNewTurmaToAttach = em.getReference(turmasNewTurmaToAttach.getClass(), turmasNewTurmaToAttach.getId());
+                attachedTurmasNew.add(turmasNewTurmaToAttach);
+            }
+            turmasNew = attachedTurmasNew;
+            aluno.setTurmas(turmasNew);
             aluno = em.merge(aluno);
+            for (Turma turmasOldTurma : turmasOld) {
+                if (!turmasNew.contains(turmasOldTurma)) {
+                    turmasOldTurma.getAlunos().remove(aluno);
+                    turmasOldTurma = em.merge(turmasOldTurma);
+                }
+            }
+            for (Turma turmasNewTurma : turmasNew) {
+                if (!turmasOld.contains(turmasNewTurma)) {
+                    turmasNewTurma.getAlunos().add(aluno);
+                    turmasNewTurma = em.merge(turmasNewTurma);
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -72,7 +105,6 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
         }
     }
 
-    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -85,6 +117,11 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The aluno with id " + id + " no longer exists.", enfe);
             }
+            List<Turma> turmas = aluno.getTurmas();
+            for (Turma turmasTurma : turmas) {
+                turmasTurma.getAlunos().remove(aluno);
+                turmasTurma = em.merge(turmasTurma);
+            }
             em.remove(aluno);
             em.getTransaction().commit();
         } finally {
@@ -94,12 +131,10 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
         }
     }
 
-    @Override
     public List<Aluno> findAlunoEntities() {
         return findAlunoEntities(true, -1, -1);
     }
 
-    @Override
     public List<Aluno> findAlunoEntities(int maxResults, int firstResult) {
         return findAlunoEntities(false, maxResults, firstResult);
     }
@@ -120,7 +155,6 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
         }
     }
 
-    @Override
     public Aluno findAluno(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -130,7 +164,6 @@ public class AlunoJpaDao implements Serializable, AlunoDao {
         }
     }
 
-    @Override
     public int getAlunoCount() {
         EntityManager em = getEntityManager();
         try {

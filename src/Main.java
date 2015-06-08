@@ -1,5 +1,5 @@
 
-import DaoJPA.AlunoJpaDao;
+//import DaoJPA.AlunoJpaDao;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.dao.AlunoDao;
@@ -20,7 +20,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TrabalhoPU");
         
         Aluno a = new Aluno(23, "aaaa", 23);
-        AlunoDao alunoDaoJpa = new AlunoJpaDao(emf);
-        alunoDaoJpa.create(a);
+//        AlunoDao alunoDaoJpa = new AlunoJpaDao(emf);
+//        alunoDaoJpa.create(a);
     }
 }
