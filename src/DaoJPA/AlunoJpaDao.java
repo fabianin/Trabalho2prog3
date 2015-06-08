@@ -35,13 +35,13 @@ public class AlunoJpaDao implements Serializable {
 
     public void create(Aluno aluno) {
         if (aluno.getTurmas() == null) {
-            aluno.setTurmas(new ArrayList<Turma>());
+            aluno.setTurmas(new ArrayList<>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Turma> attachedTurmas = new ArrayList<Turma>();
+            List<Turma> attachedTurmas = new ArrayList<>();
             for (Turma turmasTurmaToAttach : aluno.getTurmas()) {
                 turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
                 attachedTurmas.add(turmasTurmaToAttach);
@@ -68,7 +68,7 @@ public class AlunoJpaDao implements Serializable {
             Aluno persistentAluno = em.find(Aluno.class, aluno.getId());
             List<Turma> turmasOld = persistentAluno.getTurmas();
             List<Turma> turmasNew = aluno.getTurmas();
-            List<Turma> attachedTurmasNew = new ArrayList<Turma>();
+            List<Turma> attachedTurmasNew = new ArrayList<>();
             for (Turma turmasNewTurmaToAttach : turmasNew) {
                 turmasNewTurmaToAttach = em.getReference(turmasNewTurmaToAttach.getClass(), turmasNewTurmaToAttach.getId());
                 attachedTurmasNew.add(turmasNewTurmaToAttach);
