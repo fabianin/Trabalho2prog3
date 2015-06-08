@@ -41,12 +41,12 @@ public class DisciplinaJpaDao implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Professor> attachedProfessoresAptos = new ArrayList<Professor>();
+            List<Professor> attachedProfessoresAptos = new ArrayList<>();
             for (Professor professoresAptosProfessorToAttach : disciplina.getProfessoresAptos()) {
                 professoresAptosProfessorToAttach = em.getReference(professoresAptosProfessorToAttach.getClass(), professoresAptosProfessorToAttach.getId());
                 attachedProfessoresAptos.add(professoresAptosProfessorToAttach);
             }
-            disciplina.setProfessoresAptos(attachedProfessoresAptos);
+            disciplina.setProfessoresAptos((ArrayList<Professor>) attachedProfessoresAptos);
             em.persist(disciplina);
             for (Professor professoresAptosProfessor : disciplina.getProfessoresAptos()) {
                 professoresAptosProfessor.getDisciplinasApto().add(disciplina);
@@ -68,13 +68,13 @@ public class DisciplinaJpaDao implements Serializable {
             Disciplina persistentDisciplina = em.find(Disciplina.class, disciplina.getId());
             List<Professor> professoresAptosOld = persistentDisciplina.getProfessoresAptos();
             List<Professor> professoresAptosNew = disciplina.getProfessoresAptos();
-            List<Professor> attachedProfessoresAptosNew = new ArrayList<Professor>();
+            List<Professor> attachedProfessoresAptosNew = new ArrayList<>();
             for (Professor professoresAptosNewProfessorToAttach : professoresAptosNew) {
                 professoresAptosNewProfessorToAttach = em.getReference(professoresAptosNewProfessorToAttach.getClass(), professoresAptosNewProfessorToAttach.getId());
                 attachedProfessoresAptosNew.add(professoresAptosNewProfessorToAttach);
             }
             professoresAptosNew = attachedProfessoresAptosNew;
-            disciplina.setProfessoresAptos(professoresAptosNew);
+            disciplina.setProfessoresAptos((ArrayList<Professor>) professoresAptosNew);
             disciplina = em.merge(disciplina);
             for (Professor professoresAptosOldProfessor : professoresAptosOld) {
                 if (!professoresAptosNew.contains(professoresAptosOldProfessor)) {
