@@ -18,7 +18,7 @@ import model.pojo.Aluno;
 public class Main {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TrabalhoPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
         
         Aluno a = new Aluno(23, "aaaa", 23);
     }
