@@ -19,7 +19,7 @@ public class Aluno extends Pessoa implements Serializable {
     @Column(updatable = false)
     private final long matricula;
     @ManyToMany
-    private ArrayList<Turma> turmas;
+    private List<Turma> turmas;
 
     public Aluno() {
         this.matricula=0;
@@ -72,6 +72,10 @@ public class Aluno extends Pessoa implements Serializable {
     @Override
     public String toString() {
         return "Aluno{" + "matricula=" + matricula + ", turmas=" + turmas + '}';
+    }
+
+    public void setTurmas(List<Turma> turmasNew) {
+        this.turmas = turmasNew;
     }
 
 }

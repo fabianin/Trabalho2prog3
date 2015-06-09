@@ -35,7 +35,7 @@ public class DisciplinaJpaDao implements Serializable {
 
     public void create(Disciplina disciplina) {
         if (disciplina.getProfessoresAptos() == null) {
-            disciplina.setProfessoresAptos(new ArrayList<Professor>());
+            disciplina.setProfessoresAptos(new ArrayList<>());
         }
         EntityManager em = null;
         try {

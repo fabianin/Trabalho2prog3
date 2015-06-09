@@ -14,9 +14,9 @@ public class Disciplina extends GenericEntity {
     private final String ementa;
     private final long cargaHoraria;
     @OneToMany(mappedBy = "disciplinas")
-    private ArrayList<Turma> turmas;
+    private List<Turma> turmas;
     @ManyToMany
-    private ArrayList<Professor> professoresAptos;
+    private List<Professor> professoresAptos;
 
     public Disciplina(String nome, String ementa, long cargaHoraria) throws IllegalArgumentException {
         Objects.requireNonNull(nome);
@@ -98,6 +98,10 @@ public class Disciplina extends GenericEntity {
     @Override
     public String toString() {
         return "Disciplina{" + "nome=" + nome + ", ementa=" + ementa + ", cargaHoraria=" + cargaHoraria + ", turmas=" + turmas + ", professoresAptos=" + professoresAptos + '}';
+    }
+
+    public void setProfessoresAptos(ArrayList<Professor> arrayList) {
+        this.professoresAptos = arrayList;
     }
 
 }

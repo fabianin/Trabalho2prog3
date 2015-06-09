@@ -23,15 +23,13 @@ public class Turma extends GenericEntity {
     @ManyToOne
     private final Disciplina disciplinas;
     @ManyToOne
-    private final Professor professor;
+    private Professor professor;
     @ManyToMany
-    private ArrayList<Aluno> alunos;
+    private List<Aluno> alunos;
     @OneToMany
-    private ArrayList<Atividade> atividades;
-    @OneToMany
-    private ArrayList<Falta> faltas;
+    private List<Falta> faltas;
     @OneToMany(mappedBy = "turma")
-    private ArrayList<Atividade> atividade;
+    private List<Atividade> atividades;
 
     public Turma() {
         this.ano = 0;
@@ -148,6 +146,22 @@ public class Turma extends GenericEntity {
         }
         media = media/valorMaximoAtividade;
         return media;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public void setProfessor(Object object) {
+        this.professor = professor;
+    }
+
+    public void setAlunos(ArrayList<Aluno> arrayList) {
+        this.alunos = arrayList;
+    }
+
+    public void setAtividades(ArrayList<Atividade> arrayList) {
+        this.atividades = arrayList;
     }
 
 }

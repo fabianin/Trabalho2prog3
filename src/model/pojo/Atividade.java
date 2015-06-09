@@ -25,9 +25,9 @@ public class Atividade extends GenericEntity {
     @Column(nullable = false)
     private final String tipo;
     @ManyToOne
-    private final Turma turma;
+    private Turma turma;
     @OneToMany
-    private ArrayList<Nota> notas;
+    private List<Nota> notas;
 
     public Atividade(String nome, String data, long valor, String tipo, Turma turma) {
         Objects.requireNonNull(nome);
@@ -126,6 +126,10 @@ public class Atividade extends GenericEntity {
     @Override
     public String toString() {
         return "Atividade{" + "nome=" + nome + ", data=" + data + ", valor=" + valor + ", tipo=" + tipo + ", turma=" + turma + ", notas=" + notas + '}';
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
     
     

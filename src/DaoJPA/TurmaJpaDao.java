@@ -37,10 +37,10 @@ public class TurmaJpaDao implements Serializable {
 
     public void create(Turma turma) {
         if (turma.getAlunos() == null) {
-            turma.setAlunos(new ArrayList<Aluno>());
+            turma.setAlunos(new ArrayList<>());
         }
         if (turma.getAtividades() == null) {
-            turma.setAtividades(new ArrayList<Atividade>());
+            turma.setAtividades(new ArrayList<>());
         }
         EntityManager em = null;
         try {
@@ -51,18 +51,19 @@ public class TurmaJpaDao implements Serializable {
                 professor = em.getReference(professor.getClass(), professor.getId());
                 turma.setProfessor(professor);
             }
-            List<Aluno> attachedAlunos = new ArrayList<Aluno>();
+            List<Aluno> attachedAlunos = new ArrayList<>();
             for (Aluno alunosAlunoToAttach : turma.getAlunos()) {
                 alunosAlunoToAttach = em.getReference(alunosAlunoToAttach.getClass(), alunosAlunoToAttach.getId());
                 attachedAlunos.add(alunosAlunoToAttach);
             }
-            turma.setAlunos(attachedAlunos);
-            List<Atividade> attachedAtividades = new ArrayList<Atividade>();
+            turma.setAlunos((ArrayList<Aluno>) attachedAlunos);
+            List<Atividade> attachedAtividades;
+            attachedAtividades = new ArrayList<>();
             for (Atividade atividadesAtividadeToAttach : turma.getAtividades()) {
                 atividadesAtividadeToAttach = em.getReference(atividadesAtividadeToAttach.getClass(), atividadesAtividadeToAttach.getId());
                 attachedAtividades.add(atividadesAtividadeToAttach);
             }
-            turma.setAtividades(attachedAtividades);
+            turma.setAtividades((ArrayList<Atividade>) attachedAtividades);
             em.persist(turma);
             if (professor != null) {
                 professor.getTurmas().add(turma);
@@ -105,20 +106,20 @@ public class TurmaJpaDao implements Serializable {
                 professorNew = em.getReference(professorNew.getClass(), professorNew.getId());
                 turma.setProfessor(professorNew);
             }
-            List<Aluno> attachedAlunosNew = new ArrayList<Aluno>();
+            List<Aluno> attachedAlunosNew = new ArrayList<>();
             for (Aluno alunosNewAlunoToAttach : alunosNew) {
                 alunosNewAlunoToAttach = em.getReference(alunosNewAlunoToAttach.getClass(), alunosNewAlunoToAttach.getId());
                 attachedAlunosNew.add(alunosNewAlunoToAttach);
             }
             alunosNew = attachedAlunosNew;
-            turma.setAlunos(alunosNew);
-            List<Atividade> attachedAtividadesNew = new ArrayList<Atividade>();
+            turma.setAlunos((ArrayList<Aluno>) alunosNew);
+            List<Atividade> attachedAtividadesNew = new ArrayList<>();
             for (Atividade atividadesNewAtividadeToAttach : atividadesNew) {
                 atividadesNewAtividadeToAttach = em.getReference(atividadesNewAtividadeToAttach.getClass(), atividadesNewAtividadeToAttach.getId());
                 attachedAtividadesNew.add(atividadesNewAtividadeToAttach);
             }
             atividadesNew = attachedAtividadesNew;
-            turma.setAtividades(atividadesNew);
+            turma.setAtividades((ArrayList<Atividade>) atividadesNew);
             turma = em.merge(turma);
             if (professorOld != null && !professorOld.equals(professorNew)) {
                 professorOld.getTurmas().remove(turma);

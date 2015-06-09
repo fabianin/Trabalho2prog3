@@ -36,27 +36,27 @@ public class ProfessorJpaDao implements Serializable {
 
     public void create(Professor professor) {
         if (professor.getTurmas() == null) {
-            professor.setTurmas(new ArrayList<Turma>());
+            professor.setTurmas(new ArrayList<>());
         }
         if (professor.getDisciplinasApto() == null) {
-            professor.setDisciplinasApto(new ArrayList<Disciplina>());
+            professor.setDisciplinasApto(new ArrayList<>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Turma> attachedTurmas = new ArrayList<Turma>();
+            List<Turma> attachedTurmas = new ArrayList<>();
             for (Turma turmasTurmaToAttach : professor.getTurmas()) {
                 turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
                 attachedTurmas.add(turmasTurmaToAttach);
             }
-            professor.setTurmas(attachedTurmas);
-            List<Disciplina> attachedDisciplinasApto = new ArrayList<Disciplina>();
+            professor.setTurmas((ArrayList<Turma>) attachedTurmas);
+            List<Disciplina> attachedDisciplinasApto = new ArrayList<>();
             for (Disciplina disciplinasAptoDisciplinaToAttach : professor.getDisciplinasApto()) {
                 disciplinasAptoDisciplinaToAttach = em.getReference(disciplinasAptoDisciplinaToAttach.getClass(), disciplinasAptoDisciplinaToAttach.getId());
                 attachedDisciplinasApto.add(disciplinasAptoDisciplinaToAttach);
             }
-            professor.setDisciplinasApto(attachedDisciplinasApto);
+            professor.setDisciplinasApto((ArrayList<Disciplina>) attachedDisciplinasApto);
             em.persist(professor);
             for (Turma turmasTurma : professor.getTurmas()) {
                 Professor oldProfessorOfTurmasTurma = turmasTurma.getProfessor();
@@ -89,20 +89,20 @@ public class ProfessorJpaDao implements Serializable {
             List<Turma> turmasNew = professor.getTurmas();
             List<Disciplina> disciplinasAptoOld = persistentProfessor.getDisciplinasApto();
             List<Disciplina> disciplinasAptoNew = professor.getDisciplinasApto();
-            List<Turma> attachedTurmasNew = new ArrayList<Turma>();
+            List<Turma> attachedTurmasNew = new ArrayList<>();
             for (Turma turmasNewTurmaToAttach : turmasNew) {
                 turmasNewTurmaToAttach = em.getReference(turmasNewTurmaToAttach.getClass(), turmasNewTurmaToAttach.getId());
                 attachedTurmasNew.add(turmasNewTurmaToAttach);
             }
             turmasNew = attachedTurmasNew;
-            professor.setTurmas(turmasNew);
-            List<Disciplina> attachedDisciplinasAptoNew = new ArrayList<Disciplina>();
+            professor.setTurmas((ArrayList<Turma>) turmasNew);
+            List<Disciplina> attachedDisciplinasAptoNew = new ArrayList<>();
             for (Disciplina disciplinasAptoNewDisciplinaToAttach : disciplinasAptoNew) {
                 disciplinasAptoNewDisciplinaToAttach = em.getReference(disciplinasAptoNewDisciplinaToAttach.getClass(), disciplinasAptoNewDisciplinaToAttach.getId());
                 attachedDisciplinasAptoNew.add(disciplinasAptoNewDisciplinaToAttach);
             }
             disciplinasAptoNew = attachedDisciplinasAptoNew;
-            professor.setDisciplinasApto(disciplinasAptoNew);
+            professor.setDisciplinasApto((ArrayList<Disciplina>) disciplinasAptoNew);
             professor = em.merge(professor);
             for (Turma turmasOldTurma : turmasOld) {
                 if (!turmasNew.contains(turmasOldTurma)) {

@@ -2,7 +2,6 @@
 //import DaoJPA.AlunoJpaDao;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.dao.AlunoDao;
 import model.pojo.Aluno;
 
 /*

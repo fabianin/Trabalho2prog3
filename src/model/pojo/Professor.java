@@ -7,16 +7,15 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Professor extends Pessoa {
 
     private final String departamento;
     @OneToMany(mappedBy = "professor")
-    private ArrayList<Turma> turmas;
+    private List<Turma> turmas;
     @ManyToMany(mappedBy = "professoresAptos")
-    private ArrayList<Disciplina> disciplinasApto;
+    private List<Disciplina> disciplinasApto;
 
     public Professor(String departamento, String nome, long cpf) {
         super(nome, cpf);
@@ -56,6 +55,14 @@ public class Professor extends Pessoa {
         } else {
             this.disciplinasApto.add(d);
         }
+    }
+
+    public void setTurmas(ArrayList<Turma> arrayList) {
+        this.turmas = arrayList;
+    }
+
+    public void setDisciplinasApto(ArrayList<Disciplina> arrayList) {
+        this.disciplinasApto = arrayList;
     }
 
     
