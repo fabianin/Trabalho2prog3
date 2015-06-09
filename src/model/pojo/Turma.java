@@ -152,15 +152,11 @@ public class Turma extends GenericEntity {
         this.professor = professor;
     }
 
-    public void setProfessor(Object object) {
-        this.professor = professor;
-    }
-
-    public void setAlunos(ArrayList<Aluno> arrayList) {
+    public void setAlunos(List<Aluno> arrayList) {
         this.alunos = arrayList;
     }
 
-    public void setAtividades(ArrayList<Atividade> arrayList) {
+    public void setAtividades(List<Atividade> arrayList) {
         this.atividades = arrayList;
     }
 

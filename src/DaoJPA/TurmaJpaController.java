@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import model.pojo.Professor;
 import model.pojo.Aluno;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,9 +25,9 @@ import model.pojo.Turma;
  *
  * @author Fabiano
  */
-public class TurmaJpaDao implements Serializable {
+public class TurmaJpaController implements Serializable {
 
-    public TurmaJpaDao(EntityManagerFactory emf) {
+    public TurmaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -56,14 +57,14 @@ public class TurmaJpaDao implements Serializable {
                 alunosAlunoToAttach = em.getReference(alunosAlunoToAttach.getClass(), alunosAlunoToAttach.getId());
                 attachedAlunos.add(alunosAlunoToAttach);
             }
-            turma.setAlunos((ArrayList<Aluno>) attachedAlunos);
+            turma.setAlunos(attachedAlunos);
             List<Atividade> attachedAtividades;
             attachedAtividades = new ArrayList<>();
             for (Atividade atividadesAtividadeToAttach : turma.getAtividades()) {
                 atividadesAtividadeToAttach = em.getReference(atividadesAtividadeToAttach.getClass(), atividadesAtividadeToAttach.getId());
                 attachedAtividades.add(atividadesAtividadeToAttach);
             }
-            turma.setAtividades((ArrayList<Atividade>) attachedAtividades);
+            turma.setAtividades(attachedAtividades);
             em.persist(turma);
             if (professor != null) {
                 professor.getTurmas().add(turma);
@@ -112,14 +113,14 @@ public class TurmaJpaDao implements Serializable {
                 attachedAlunosNew.add(alunosNewAlunoToAttach);
             }
             alunosNew = attachedAlunosNew;
-            turma.setAlunos((ArrayList<Aluno>) alunosNew);
+            turma.setAlunos(alunosNew);
             List<Atividade> attachedAtividadesNew = new ArrayList<>();
             for (Atividade atividadesNewAtividadeToAttach : atividadesNew) {
                 atividadesNewAtividadeToAttach = em.getReference(atividadesNewAtividadeToAttach.getClass(), atividadesNewAtividadeToAttach.getId());
                 attachedAtividadesNew.add(atividadesNewAtividadeToAttach);
             }
             atividadesNew = attachedAtividadesNew;
-            turma.setAtividades((ArrayList<Atividade>) atividadesNew);
+            turma.setAtividades(atividadesNew);
             turma = em.merge(turma);
             if (professorOld != null && !professorOld.equals(professorNew)) {
                 professorOld.getTurmas().remove(turma);

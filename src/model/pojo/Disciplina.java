@@ -100,7 +100,7 @@ public class Disciplina extends GenericEntity {
         return "Disciplina{" + "nome=" + nome + ", ementa=" + ementa + ", cargaHoraria=" + cargaHoraria + ", turmas=" + turmas + ", professoresAptos=" + professoresAptos + '}';
     }
 
-    public void setProfessoresAptos(ArrayList<Professor> arrayList) {
+    public void setProfessoresAptos(List<Professor> arrayList) {
         this.professoresAptos = arrayList;
     }
 

@@ -14,15 +14,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.pojo.Nota;
+import model.pojo.Falta;
 
 /**
  *
  * @author Fabiano
  */
-public class NotaJpaDao implements Serializable {
+public class FaltaJpaController implements Serializable {
 
-    public NotaJpaDao(EntityManagerFactory emf) {
+    public FaltaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,12 +31,12 @@ public class NotaJpaDao implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Nota nota) {
+    public void create(Falta falta) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(nota);
+            em.persist(falta);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +45,19 @@ public class NotaJpaDao implements Serializable {
         }
     }
 
-    public void edit(Nota nota) throws NonexistentEntityException, Exception {
+    public void edit(Falta falta) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            nota = em.merge(nota);
+            falta = em.merge(falta);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = nota.getId();
-                if (findNota(id) == null) {
-                    throw new NonexistentEntityException("The nota with id " + id + " no longer exists.");
+                Long id = falta.getId();
+                if (findFalta(id) == null) {
+                    throw new NonexistentEntityException("The falta with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +73,14 @@ public class NotaJpaDao implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Nota nota;
+            Falta falta;
             try {
-                nota = em.getReference(Nota.class, id);
-                nota.getId();
+                falta = em.getReference(Falta.class, id);
+                falta.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The nota with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The falta with id " + id + " no longer exists.", enfe);
             }
-            em.remove(nota);
+            em.remove(falta);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +89,19 @@ public class NotaJpaDao implements Serializable {
         }
     }
 
-    public List<Nota> findNotaEntities() {
-        return findNotaEntities(true, -1, -1);
+    public List<Falta> findFaltaEntities() {
+        return findFaltaEntities(true, -1, -1);
     }
 
-    public List<Nota> findNotaEntities(int maxResults, int firstResult) {
-        return findNotaEntities(false, maxResults, firstResult);
+    public List<Falta> findFaltaEntities(int maxResults, int firstResult) {
+        return findFaltaEntities(false, maxResults, firstResult);
     }
 
-    private List<Nota> findNotaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Falta> findFaltaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Nota.class));
+            cq.select(cq.from(Falta.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +113,20 @@ public class NotaJpaDao implements Serializable {
         }
     }
 
-    public Nota findNota(Long id) {
+    public Falta findFalta(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Nota.class, id);
+            return em.find(Falta.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getNotaCount() {
+    public int getFaltaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Nota> rt = cq.from(Nota.class);
+            Root<Falta> rt = cq.from(Falta.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

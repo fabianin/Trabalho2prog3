@@ -57,11 +57,11 @@ public class Professor extends Pessoa {
         }
     }
 
-    public void setTurmas(ArrayList<Turma> arrayList) {
+    public void setTurmas(List<Turma> arrayList) {
         this.turmas = arrayList;
     }
 
-    public void setDisciplinasApto(ArrayList<Disciplina> arrayList) {
+    public void setDisciplinasApto(List<Disciplina> arrayList) {
         this.disciplinasApto = arrayList;
     }
 

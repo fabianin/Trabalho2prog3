@@ -22,9 +22,9 @@ import model.pojo.Aluno;
  *
  * @author Fabiano
  */
-public class AlunoJpaDao implements Serializable {
+public class AlunoJpaController implements Serializable {
 
-    public AlunoJpaDao(EntityManagerFactory emf) {
+    public AlunoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -35,13 +35,13 @@ public class AlunoJpaDao implements Serializable {
 
     public void create(Aluno aluno) {
         if (aluno.getTurmas() == null) {
-            aluno.setTurmas(new ArrayList<>());
+            aluno.setTurmas(new ArrayList<Turma>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Turma> attachedTurmas = new ArrayList<>();
+            List<Turma> attachedTurmas = new ArrayList<Turma>();
             for (Turma turmasTurmaToAttach : aluno.getTurmas()) {
                 turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
                 attachedTurmas.add(turmasTurmaToAttach);
@@ -68,7 +68,7 @@ public class AlunoJpaDao implements Serializable {
             Aluno persistentAluno = em.find(Aluno.class, aluno.getId());
             List<Turma> turmasOld = persistentAluno.getTurmas();
             List<Turma> turmasNew = aluno.getTurmas();
-            List<Turma> attachedTurmasNew = new ArrayList<>();
+            List<Turma> attachedTurmasNew = new ArrayList<Turma>();
             for (Turma turmasNewTurmaToAttach : turmasNew) {
                 turmasNewTurmaToAttach = em.getReference(turmasNewTurmaToAttach.getClass(), turmasNewTurmaToAttach.getId());
                 attachedTurmasNew.add(turmasNewTurmaToAttach);

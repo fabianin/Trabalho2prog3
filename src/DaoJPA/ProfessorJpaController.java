@@ -23,9 +23,9 @@ import model.pojo.Professor;
  *
  * @author Fabiano
  */
-public class ProfessorJpaDao implements Serializable {
+public class ProfessorJpaController implements Serializable {
 
-    public ProfessorJpaDao(EntityManagerFactory emf) {
+    public ProfessorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -50,13 +50,13 @@ public class ProfessorJpaDao implements Serializable {
                 turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
                 attachedTurmas.add(turmasTurmaToAttach);
             }
-            professor.setTurmas((ArrayList<Turma>) attachedTurmas);
+            professor.setTurmas(attachedTurmas);
             List<Disciplina> attachedDisciplinasApto = new ArrayList<>();
             for (Disciplina disciplinasAptoDisciplinaToAttach : professor.getDisciplinasApto()) {
                 disciplinasAptoDisciplinaToAttach = em.getReference(disciplinasAptoDisciplinaToAttach.getClass(), disciplinasAptoDisciplinaToAttach.getId());
                 attachedDisciplinasApto.add(disciplinasAptoDisciplinaToAttach);
             }
-            professor.setDisciplinasApto((ArrayList<Disciplina>) attachedDisciplinasApto);
+            professor.setDisciplinasApto(attachedDisciplinasApto);
             em.persist(professor);
             for (Turma turmasTurma : professor.getTurmas()) {
                 Professor oldProfessorOfTurmasTurma = turmasTurma.getProfessor();
@@ -95,14 +95,14 @@ public class ProfessorJpaDao implements Serializable {
                 attachedTurmasNew.add(turmasNewTurmaToAttach);
             }
             turmasNew = attachedTurmasNew;
-            professor.setTurmas((ArrayList<Turma>) turmasNew);
+            professor.setTurmas(turmasNew);
             List<Disciplina> attachedDisciplinasAptoNew = new ArrayList<>();
             for (Disciplina disciplinasAptoNewDisciplinaToAttach : disciplinasAptoNew) {
                 disciplinasAptoNewDisciplinaToAttach = em.getReference(disciplinasAptoNewDisciplinaToAttach.getClass(), disciplinasAptoNewDisciplinaToAttach.getId());
                 attachedDisciplinasAptoNew.add(disciplinasAptoNewDisciplinaToAttach);
             }
             disciplinasAptoNew = attachedDisciplinasAptoNew;
-            professor.setDisciplinasApto((ArrayList<Disciplina>) disciplinasAptoNew);
+            professor.setDisciplinasApto(disciplinasAptoNew);
             professor = em.merge(professor);
             for (Turma turmasOldTurma : turmasOld) {
                 if (!turmasNew.contains(turmasOldTurma)) {

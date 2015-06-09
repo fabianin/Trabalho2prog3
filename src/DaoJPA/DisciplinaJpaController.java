@@ -22,9 +22,9 @@ import model.pojo.Disciplina;
  *
  * @author Fabiano
  */
-public class DisciplinaJpaDao implements Serializable {
+public class DisciplinaJpaController implements Serializable {
 
-    public DisciplinaJpaDao(EntityManagerFactory emf) {
+    public DisciplinaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -35,18 +35,18 @@ public class DisciplinaJpaDao implements Serializable {
 
     public void create(Disciplina disciplina) {
         if (disciplina.getProfessoresAptos() == null) {
-            disciplina.setProfessoresAptos(new ArrayList<>());
+            disciplina.setProfessoresAptos(new ArrayList<Professor>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Professor> attachedProfessoresAptos = new ArrayList<>();
+            List<Professor> attachedProfessoresAptos = new ArrayList<Professor>();
             for (Professor professoresAptosProfessorToAttach : disciplina.getProfessoresAptos()) {
                 professoresAptosProfessorToAttach = em.getReference(professoresAptosProfessorToAttach.getClass(), professoresAptosProfessorToAttach.getId());
                 attachedProfessoresAptos.add(professoresAptosProfessorToAttach);
             }
-            disciplina.setProfessoresAptos((ArrayList<Professor>) attachedProfessoresAptos);
+            disciplina.setProfessoresAptos(attachedProfessoresAptos);
             em.persist(disciplina);
             for (Professor professoresAptosProfessor : disciplina.getProfessoresAptos()) {
                 professoresAptosProfessor.getDisciplinasApto().add(disciplina);
@@ -68,13 +68,13 @@ public class DisciplinaJpaDao implements Serializable {
             Disciplina persistentDisciplina = em.find(Disciplina.class, disciplina.getId());
             List<Professor> professoresAptosOld = persistentDisciplina.getProfessoresAptos();
             List<Professor> professoresAptosNew = disciplina.getProfessoresAptos();
-            List<Professor> attachedProfessoresAptosNew = new ArrayList<>();
+            List<Professor> attachedProfessoresAptosNew = new ArrayList<Professor>();
             for (Professor professoresAptosNewProfessorToAttach : professoresAptosNew) {
                 professoresAptosNewProfessorToAttach = em.getReference(professoresAptosNewProfessorToAttach.getClass(), professoresAptosNewProfessorToAttach.getId());
                 attachedProfessoresAptosNew.add(professoresAptosNewProfessorToAttach);
             }
             professoresAptosNew = attachedProfessoresAptosNew;
-            disciplina.setProfessoresAptos((ArrayList<Professor>) professoresAptosNew);
+            disciplina.setProfessoresAptos(professoresAptosNew);
             disciplina = em.merge(disciplina);
             for (Professor professoresAptosOldProfessor : professoresAptosOld) {
                 if (!professoresAptosNew.contains(professoresAptosOldProfessor)) {

@@ -14,15 +14,16 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.pojo.Falta;
+import model.pojo.Atividade;
+import model.pojo.Turma;
 
 /**
  *
  * @author Fabiano
  */
-public class FaltaJpaDao implements Serializable {
+public class AtividadeJpaController implements Serializable {
 
-    public FaltaJpaDao(EntityManagerFactory emf) {
+    public AtividadeJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,12 +32,21 @@ public class FaltaJpaDao implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Falta falta) {
+    public void create(Atividade atividade) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(falta);
+            Turma turma = atividade.getTurma();
+            if (turma != null) {
+                turma = em.getReference(turma.getClass(), turma.getId());
+                atividade.setTurma(turma);
+            }
+            em.persist(atividade);
+            if (turma != null) {
+                turma.getAtividades().add(atividade);
+                turma = em.merge(turma);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +55,34 @@ public class FaltaJpaDao implements Serializable {
         }
     }
 
-    public void edit(Falta falta) throws NonexistentEntityException, Exception {
+    public void edit(Atividade atividade) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            falta = em.merge(falta);
+            Atividade persistentAtividade = em.find(Atividade.class, atividade.getId());
+            Turma turmaOld = persistentAtividade.getTurma();
+            Turma turmaNew = atividade.getTurma();
+            if (turmaNew != null) {
+                turmaNew = em.getReference(turmaNew.getClass(), turmaNew.getId());
+                atividade.setTurma(turmaNew);
+            }
+            atividade = em.merge(atividade);
+            if (turmaOld != null && !turmaOld.equals(turmaNew)) {
+                turmaOld.getAtividades().remove(atividade);
+                turmaOld = em.merge(turmaOld);
+            }
+            if (turmaNew != null && !turmaNew.equals(turmaOld)) {
+                turmaNew.getAtividades().add(atividade);
+                turmaNew = em.merge(turmaNew);
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = falta.getId();
-                if (findFalta(id) == null) {
-                    throw new NonexistentEntityException("The falta with id " + id + " no longer exists.");
+                Long id = atividade.getId();
+                if (findAtividade(id) == null) {
+                    throw new NonexistentEntityException("The atividade with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +98,19 @@ public class FaltaJpaDao implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Falta falta;
+            Atividade atividade;
             try {
-                falta = em.getReference(Falta.class, id);
-                falta.getId();
+                atividade = em.getReference(Atividade.class, id);
+                atividade.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The falta with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The atividade with id " + id + " no longer exists.", enfe);
             }
-            em.remove(falta);
+            Turma turma = atividade.getTurma();
+            if (turma != null) {
+                turma.getAtividades().remove(atividade);
+                turma = em.merge(turma);
+            }
+            em.remove(atividade);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +119,19 @@ public class FaltaJpaDao implements Serializable {
         }
     }
 
-    public List<Falta> findFaltaEntities() {
-        return findFaltaEntities(true, -1, -1);
+    public List<Atividade> findAtividadeEntities() {
+        return findAtividadeEntities(true, -1, -1);
     }
 
-    public List<Falta> findFaltaEntities(int maxResults, int firstResult) {
-        return findFaltaEntities(false, maxResults, firstResult);
+    public List<Atividade> findAtividadeEntities(int maxResults, int firstResult) {
+        return findAtividadeEntities(false, maxResults, firstResult);
     }
 
-    private List<Falta> findFaltaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Atividade> findAtividadeEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Falta.class));
+            cq.select(cq.from(Atividade.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +143,20 @@ public class FaltaJpaDao implements Serializable {
         }
     }
 
-    public Falta findFalta(Long id) {
+    public Atividade findAtividade(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Falta.class, id);
+            return em.find(Atividade.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getFaltaCount() {
+    public int getAtividadeCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Falta> rt = cq.from(Falta.class);
+            Root<Atividade> rt = cq.from(Atividade.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
