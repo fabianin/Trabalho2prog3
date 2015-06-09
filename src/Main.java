@@ -21,7 +21,5 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TrabalhoPU");
         
         Aluno a = new Aluno(23, "aaaa", 23);
-        AlunoDao alunoDaoJpa = new AlunoJpaController(emf);
-        alunoDaoJpa.create(a);
     }
 }
