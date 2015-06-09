@@ -16,13 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import model.dao.AlunoDao;
 import model.pojo.Aluno;
 
 /**
  *
  * @author Fabiano
  */
-public class AlunoJpaController implements Serializable {
+public class AlunoJpaController implements Serializable, AlunoDao {
 
     public AlunoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
