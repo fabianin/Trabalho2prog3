@@ -34,14 +34,14 @@ public class Professor extends Pessoa {
         if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
-        return Collections.unmodifiableList(turmas);
+        return turmas;
     }
 
     public List<Disciplina> getDisciplinasApto() {
         if (this.disciplinasApto == null) {
             this.disciplinasApto = new ArrayList<>();
         }
-        return Collections.unmodifiableList(disciplinasApto);
+        return disciplinasApto;
     }
 
     public void addTurma(Turma t) {
