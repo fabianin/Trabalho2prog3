@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -14,37 +15,31 @@ import javax.persistence.OneToMany;
 @Entity
 public class Turma extends GenericEntity {
 
-    private final long ano;
-    private final long periodo;
+    private long ano;
+    private long periodo;
     @Column(name = "local", nullable = false)
-    private final String local;
-    private final long numVagas;
-    private final String horario;
+    private String local;
+    private long numVagas;
+    private String horario;
     @ManyToOne
-    private final Disciplina disciplinas;
+    private Disciplina disciplinas;
     @ManyToOne
     private Professor professor;
-    @ManyToMany
+    @ManyToMany(mappedBy = "turmas")
     private List<Aluno> alunos;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Falta> faltas;
     @OneToMany(mappedBy = "turma")
     private List<Atividade> atividades;
 
     public Turma() {
-        this.ano = 0;
-        this.periodo = 0;
-        this.local = null;
-        this.numVagas = 0;
-        this.horario = null;
-        this.disciplinas = null;
-        this.professor = null;
+        
     }
 
     public Turma(long ano, long periodo, String local, long numVagas, String horario, Disciplina disciplina, Professor professor) {
         Objects.requireNonNull(horario);
-        Objects.requireNonNull(disciplina);
-        Objects.requireNonNull(professor);
+//        Objects.requireNonNull(disciplina);
+//        Objects.requireNonNull(professor);
         if(numVagas<0){
             throw new IllegalArgumentException("Numero de vagas não pode ser negativo.");
         }

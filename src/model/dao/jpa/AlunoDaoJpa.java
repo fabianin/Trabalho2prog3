@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DaoJPA;
+package model.dao.jpa;
 
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
@@ -16,33 +16,34 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import model.dao.AlunoDao;
 import model.pojo.Aluno;
 
 /**
  *
  * @author Fabiano
  */
-public class AlunoJpaController implements Serializable, AlunoDao {
+public class AlunoDaoJpa implements  model.dao.AlunoDao, Serializable {
 
-    public AlunoJpaController(EntityManagerFactory emf) {
+    public AlunoDaoJpa(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(Aluno aluno) {
         if (aluno.getTurmas() == null) {
-            aluno.setTurmas(new ArrayList<Turma>());
+            aluno.setTurmas(new ArrayList<>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Turma> attachedTurmas = new ArrayList<Turma>();
+            List<Turma> attachedTurmas = new ArrayList<>();
             for (Turma turmasTurmaToAttach : aluno.getTurmas()) {
                 turmasTurmaToAttach = em.getReference(turmasTurmaToAttach.getClass(), turmasTurmaToAttach.getId());
                 attachedTurmas.add(turmasTurmaToAttach);
@@ -61,6 +62,7 @@ public class AlunoJpaController implements Serializable, AlunoDao {
         }
     }
 
+    @Override
     public void edit(Aluno aluno) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -106,6 +108,7 @@ public class AlunoJpaController implements Serializable, AlunoDao {
         }
     }
 
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -132,10 +135,12 @@ public class AlunoJpaController implements Serializable, AlunoDao {
         }
     }
 
+    @Override
     public List<Aluno> findAlunoEntities() {
         return findAlunoEntities(true, -1, -1);
     }
 
+    @Override
     public List<Aluno> findAlunoEntities(int maxResults, int firstResult) {
         return findAlunoEntities(false, maxResults, firstResult);
     }
@@ -156,6 +161,7 @@ public class AlunoJpaController implements Serializable, AlunoDao {
         }
     }
 
+    @Override
     public Aluno findAluno(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -165,6 +171,7 @@ public class AlunoJpaController implements Serializable, AlunoDao {
         }
     }
 
+    @Override
     public int getAlunoCount() {
         EntityManager em = getEntityManager();
         try {

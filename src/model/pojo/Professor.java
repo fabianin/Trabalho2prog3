@@ -11,11 +11,14 @@ import javax.persistence.OneToMany;
 @Entity
 public class Professor extends Pessoa {
 
-    private final String departamento;
+    private String departamento;
     @OneToMany(mappedBy = "professor")
     private List<Turma> turmas;
     @ManyToMany(mappedBy = "professoresAptos")
     private List<Disciplina> disciplinasApto;
+
+    public Professor() {
+    }
 
     public Professor(String departamento, String nome, long cpf) {
         super(nome, cpf);

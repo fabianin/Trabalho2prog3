@@ -10,13 +10,16 @@ import javax.persistence.OneToMany;
 @Entity
 public class Disciplina extends GenericEntity {
 
-    private final String nome;
-    private final String ementa;
-    private final long cargaHoraria;
+    private String nome;
+    private String ementa;
+    private long cargaHoraria;
     @OneToMany(mappedBy = "disciplinas")
     private List<Turma> turmas;
     @ManyToMany
     private List<Professor> professoresAptos;
+
+    public Disciplina() {
+    }
 
     public Disciplina(String nome, String ementa, long cargaHoraria) throws IllegalArgumentException {
         Objects.requireNonNull(nome);
@@ -79,8 +82,9 @@ public class Disciplina extends GenericEntity {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (obj.getClass() != getClass()) {
             return false;
+        } else {
         }
         final Disciplina other = (Disciplina) obj;
         if (!Objects.equals(this.nome, other.nome)) {
@@ -89,10 +93,7 @@ public class Disciplina extends GenericEntity {
         if (!Objects.equals(this.ementa, other.ementa)) {
             return false;
         }
-        if (this.cargaHoraria != other.cargaHoraria) {
-            return false;
-        }
-        return true;
+        return this.cargaHoraria == other.cargaHoraria;
     }
 
     @Override

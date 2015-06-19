@@ -8,28 +8,28 @@ package model.dao;
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
-import model.pojo.Aluno;
+import model.pojo.Turma;
 
 /**
  *
  * @author Fabiano
  */
-public interface AlunoDao  {
+public interface TurmaDao {
 
-    void create(Aluno aluno);
+    void create(Turma turma);
 
     void destroy(Long id) throws NonexistentEntityException;
 
-    void edit(Aluno aluno) throws NonexistentEntityException, Exception;
+    void edit(Turma turma) throws NonexistentEntityException, Exception;
 
-    Aluno findAluno(Long id);
+    Turma findTurma(Long id);
 
-    List<Aluno> findAlunoEntities();
+    List<Turma> findTurmaEntities();
 
-    List<Aluno> findAlunoEntities(int maxResults, int firstResult);
-
-    int getAlunoCount();
+    List<Turma> findTurmaEntities(int maxResults, int firstResult);
 
     EntityManager getEntityManager();
+
+    int getTurmaCount();
     
 }

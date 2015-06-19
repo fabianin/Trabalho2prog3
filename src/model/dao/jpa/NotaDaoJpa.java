@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DaoJPA;
+package model.dao.jpa;
 
+import model.dao.NotaDao;
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -20,17 +21,19 @@ import model.pojo.Nota;
  *
  * @author Fabiano
  */
-public class NotaJpaController implements Serializable {
+public class NotaDaoJpa implements Serializable, NotaDao {
 
-    public NotaJpaController(EntityManagerFactory emf) {
+    public NotaDaoJpa(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(Nota nota) {
         EntityManager em = null;
         try {
@@ -45,6 +48,7 @@ public class NotaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Nota nota) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -68,6 +72,7 @@ public class NotaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -89,10 +94,12 @@ public class NotaJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<Nota> findNotaEntities() {
         return findNotaEntities(true, -1, -1);
     }
 
+    @Override
     public List<Nota> findNotaEntities(int maxResults, int firstResult) {
         return findNotaEntities(false, maxResults, firstResult);
     }
@@ -113,6 +120,7 @@ public class NotaJpaController implements Serializable {
         }
     }
 
+    @Override
     public Nota findNota(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -122,6 +130,7 @@ public class NotaJpaController implements Serializable {
         }
     }
 
+    @Override
     public int getNotaCount() {
         EntityManager em = getEntityManager();
         try {

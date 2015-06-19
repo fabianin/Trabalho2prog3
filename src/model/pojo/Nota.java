@@ -2,14 +2,20 @@ package model.pojo;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Nota extends GenericEntity {
 
-	private final double valorObtido;
+	private double valorObtido;
         @OneToOne
-	private final Aluno aluno;
+	private Aluno aluno;
+    @ManyToOne
+        private Atividade atividade;
+
+    public Nota() {
+    }
 
     public Nota(double valorObtido, Aluno aluno) {
         Objects.requireNonNull(aluno);

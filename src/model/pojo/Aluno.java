@@ -8,7 +8,6 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -44,6 +43,9 @@ public class Aluno extends Pessoa implements Serializable {
     }
 
     public List<Turma> getTurmas() {
+        if(turmas == null){
+            this.turmas = new ArrayList<>();
+        }
         return Collections.unmodifiableList(turmas);
     }
 
@@ -63,10 +65,7 @@ public class Aluno extends Pessoa implements Serializable {
             return false;
         }
         final Aluno other = (Aluno) obj;
-        if (this.matricula != other.matricula) {
-            return false;
-        }
-        return true;
+        return this.matricula == other.matricula;
     }
 
     @Override

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DaoJPA;
+package model.dao.jpa;
 
+import model.dao.TurmaDao;
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -25,17 +26,19 @@ import model.pojo.Turma;
  *
  * @author Fabiano
  */
-public class TurmaJpaController implements Serializable {
+public class TurmaDaoJpa implements Serializable, TurmaDao {
 
-    public TurmaJpaController(EntityManagerFactory emf) {
+    public TurmaDaoJpa(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(Turma turma) {
         if (turma.getAlunos() == null) {
             turma.setAlunos(new ArrayList<>());
@@ -91,6 +94,7 @@ public class TurmaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Turma turma) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -176,6 +180,7 @@ public class TurmaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -212,10 +217,12 @@ public class TurmaJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<Turma> findTurmaEntities() {
         return findTurmaEntities(true, -1, -1);
     }
 
+    @Override
     public List<Turma> findTurmaEntities(int maxResults, int firstResult) {
         return findTurmaEntities(false, maxResults, firstResult);
     }
@@ -236,6 +243,7 @@ public class TurmaJpaController implements Serializable {
         }
     }
 
+    @Override
     public Turma findTurma(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -245,6 +253,7 @@ public class TurmaJpaController implements Serializable {
         }
     }
 
+    @Override
     public int getTurmaCount() {
         EntityManager em = getEntityManager();
         try {

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DaoJPA;
+package model.dao.jpa;
 
+import model.dao.ProfessorDao;
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -23,17 +24,19 @@ import model.pojo.Professor;
  *
  * @author Fabiano
  */
-public class ProfessorJpaController implements Serializable {
+public class ProfessorDaoJpa implements Serializable, ProfessorDao {
 
-    public ProfessorJpaController(EntityManagerFactory emf) {
+    public ProfessorDaoJpa(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(Professor professor) {
         if (professor.getTurmas() == null) {
             professor.setTurmas(new ArrayList<>());
@@ -79,6 +82,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Professor professor) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -150,6 +154,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -181,10 +186,12 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<Professor> findProfessorEntities() {
         return findProfessorEntities(true, -1, -1);
     }
 
+    @Override
     public List<Professor> findProfessorEntities(int maxResults, int firstResult) {
         return findProfessorEntities(false, maxResults, firstResult);
     }
@@ -205,6 +212,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public Professor findProfessor(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -214,6 +222,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public int getProfessorCount() {
         EntityManager em = getEntityManager();
         try {

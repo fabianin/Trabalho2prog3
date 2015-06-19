@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DaoJPA;
+package model.dao.jpa;
 
+import model.dao.DisciplinaDao;
 import DaoJPA.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -22,17 +23,19 @@ import model.pojo.Disciplina;
  *
  * @author Fabiano
  */
-public class DisciplinaJpaController implements Serializable {
+public class DisciplinaDaoJpa implements Serializable, DisciplinaDao {
 
-    public DisciplinaJpaController(EntityManagerFactory emf) {
+    public DisciplinaDaoJpa(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(Disciplina disciplina) {
         if (disciplina.getProfessoresAptos() == null) {
             disciplina.setProfessoresAptos(new ArrayList<Professor>());
@@ -60,6 +63,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Disciplina disciplina) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -105,6 +109,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -131,10 +136,12 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<Disciplina> findDisciplinaEntities() {
         return findDisciplinaEntities(true, -1, -1);
     }
 
+    @Override
     public List<Disciplina> findDisciplinaEntities(int maxResults, int firstResult) {
         return findDisciplinaEntities(false, maxResults, firstResult);
     }
@@ -155,6 +162,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public Disciplina findDisciplina(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -164,6 +172,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public int getDisciplinaCount() {
         EntityManager em = getEntityManager();
         try {

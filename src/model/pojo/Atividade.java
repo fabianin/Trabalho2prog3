@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,20 +15,20 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Atividade extends GenericEntity {
-
-    @Id @GeneratedValue
-    private Long id;
     @Column(nullable = false)
-    private final String nome;
+    private String nome;
     @Column(nullable = false)
-    private final String data;
-    private final double valor;
+    private String data;
+    private double valor;
     @Column(nullable = false)
-    private final String tipo;
+    private String tipo;
     @ManyToOne
     private Turma turma;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Nota> notas;
+
+    public Atividade() {
+    }
 
     public Atividade(String nome, String data, long valor, String tipo, Turma turma) {
         Objects.requireNonNull(nome);
