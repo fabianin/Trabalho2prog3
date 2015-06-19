@@ -5,7 +5,7 @@
  */
 package model.dao;
 
-import DaoJPA.exceptions.NonexistentEntityException;
+import model.dao.jpa.expections.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import model.pojo.Turma;

@@ -1,4 +1,4 @@
-package DaoJPA.exceptions;
+package model.dao.jpa.expections;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

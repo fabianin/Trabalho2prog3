@@ -5,7 +5,7 @@
  */
 package model.dao.jpa;
 
-import DaoJPA.exceptions.NonexistentEntityException;
+import model.dao.jpa.expections.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;

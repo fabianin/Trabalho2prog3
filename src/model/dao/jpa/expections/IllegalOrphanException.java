@@ -1,4 +1,4 @@
-package DaoJPA.exceptions;
+package model.dao.jpa.expections;
 
 import java.util.ArrayList;
 import java.util.List;
