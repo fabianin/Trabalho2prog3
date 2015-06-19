@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 @Entity
 public class Disciplina extends GenericEntity {
 
@@ -24,7 +25,7 @@ public class Disciplina extends GenericEntity {
     public Disciplina(String nome, String ementa, long cargaHoraria) throws IllegalArgumentException {
         Objects.requireNonNull(nome);
         Objects.requireNonNull(ementa);
-        if(cargaHoraria<1){
+        if (cargaHoraria < 1) {
             throw new IllegalArgumentException("Valor da carga horaria não pode ser negativo");
         }
         this.nome = nome;
@@ -61,14 +62,14 @@ public class Disciplina extends GenericEntity {
     }
 
     public List<Turma> getTurmas() {
-        if(this.turmas == null){
+        if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
         return Collections.unmodifiableList(turmas);
     }
 
     public List<Professor> getProfessoresAptos() {
-        if(this.professoresAptos == null){
+        if (this.professoresAptos == null) {
             this.professoresAptos = new ArrayList<>();
         }
         return Collections.unmodifiableList(professoresAptos);

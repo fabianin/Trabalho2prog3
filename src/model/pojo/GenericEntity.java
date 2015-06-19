@@ -17,6 +17,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class GenericEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +29,7 @@ public abstract class GenericEntity implements Serializable {
 
     public GenericEntity() {
     }
-    
+
 //    public void salva(){
 //        EntityManagerFactory factory = JPAUtil.getEntityManagerFactory();
 //        EntityManager manager = JPAUtil.getEntityManager();
@@ -38,8 +39,6 @@ public abstract class GenericEntity implements Serializable {
 //        tran.commit();
 //        manager.close();
 //    }
-    
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,5 +64,5 @@ public abstract class GenericEntity implements Serializable {
     public String toString() {
         return "model.pojo.PojoBase[ id=" + id + " ]";
     }
-    
+
 }

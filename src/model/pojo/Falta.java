@@ -3,11 +3,12 @@ package model.pojo;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Falta extends GenericEntity {
 
     private long numFaltas;
-    
+
     @OneToOne
     private Aluno aluno;
 
@@ -16,7 +17,7 @@ public class Falta extends GenericEntity {
 
     public Falta(long numFaltas, Aluno aluno) {
         Objects.requireNonNull(aluno);
-        if(numFaltas<0){
+        if (numFaltas < 0) {
             throw new IllegalArgumentException("O numero de faltas não pode ser negativo");
         }
         this.numFaltas = numFaltas;
@@ -61,7 +62,5 @@ public class Falta extends GenericEntity {
     public String toString() {
         return "Falta{" + "numFaltas=" + numFaltas + ", aluno=" + aluno + '}';
     }
-    
-    
 
 }

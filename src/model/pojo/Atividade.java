@@ -13,9 +13,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Atividade extends GenericEntity {
+
     @Column(nullable = false)
     private String nome;
-    @Column(name ="diaDaAtividade" ,nullable = false)
+    @Column(name = "diaDaAtividade", nullable = false)
     private String data;
     private double valor;
     @Column(nullable = false)
@@ -33,7 +34,7 @@ public class Atividade extends GenericEntity {
         Objects.requireNonNull(data);
         Objects.requireNonNull(tipo);
         Objects.requireNonNull(turma);
-        if(valor <= 0 ){
+        if (valor <= 0) {
             throw new IllegalArgumentException("Valor da atividade não pode ser igual ou menor que 0.");
         }
         this.nome = nome;
@@ -64,13 +65,14 @@ public class Atividade extends GenericEntity {
     }
 
     public List<Nota> getNotas() {
-        if(this.notas == null){
+        if (this.notas == null) {
             this.notas = new ArrayList<>();
         }
         return Collections.unmodifiableList(notas);
     }
-    public void addNota(Nota n){
-        if(this.notas == null){
+
+    public void addNota(Nota n) {
+        if (this.notas == null) {
             notas = new ArrayList<>();
         }
         this.notas.add(n);
@@ -86,8 +88,6 @@ public class Atividade extends GenericEntity {
         hash = 13 * hash + Objects.hashCode(this.turma);
         return hash;
     }
-
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -112,12 +112,12 @@ public class Atividade extends GenericEntity {
         }
         return Objects.equals(this.turma, other.turma);
     }
-    
-    public double getNotaByAluno(Aluno a){
-        List<Nota> nota = this.getNotas().stream().filter(x ->x.getAluno() == a).collect(Collectors.toList());
-        if(nota == null){
+
+    public double getNotaByAluno(Aluno a) {
+        List<Nota> nota = this.getNotas().stream().filter(x -> x.getAluno() == a).collect(Collectors.toList());
+        if (nota == null) {
             throw new IllegalArgumentException("Aluno não matriculado nessa turma ou com nota ainda não lançada.");
-        } else{
+        } else {
             return nota.get(0).getValorObtido();
         }
     }
@@ -130,7 +130,5 @@ public class Atividade extends GenericEntity {
     public void setTurma(Turma turma) {
         this.turma = turma;
     }
-    
-    
 
 }

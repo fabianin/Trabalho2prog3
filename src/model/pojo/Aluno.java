@@ -14,15 +14,15 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 public class Aluno extends Pessoa {
+
     @Column(updatable = false)
     private final long matricula;
     @ManyToMany
     private List<Turma> turmas;
 
     public Aluno() {
-        this.matricula=0;
+        this.matricula = 0;
     }
-    
 
     public Aluno(long matricula, String nome, long cpf) {
         super(nome, cpf);
@@ -42,7 +42,7 @@ public class Aluno extends Pessoa {
     }
 
     public List<Turma> getTurmas() {
-        if(this.turmas == null){
+        if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
         return Collections.unmodifiableList(turmas);

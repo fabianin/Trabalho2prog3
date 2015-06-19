@@ -33,14 +33,14 @@ public class Turma extends GenericEntity {
     private List<Atividade> atividades;
 
     public Turma() {
-        
+
     }
 
     public Turma(long ano, long periodo, String local, long numVagas, String horario, Disciplina disciplina, Professor professor) {
         Objects.requireNonNull(horario);
         Objects.requireNonNull(disciplina);
         Objects.requireNonNull(professor);
-        if(numVagas<0){
+        if (numVagas < 0) {
             throw new IllegalArgumentException("Numero de vagas não pode ser negativo.");
         }
         this.ano = ano;
@@ -81,74 +81,79 @@ public class Turma extends GenericEntity {
     }
 
     public List<Aluno> getAlunos() {
-        if(this.alunos == null){
+        if (this.alunos == null) {
             this.alunos = new ArrayList<>();
         }
         return Collections.unmodifiableList(alunos);
     }
 
     public List<Atividade> getAtividades() {
-        if(this.atividades == null){
+        if (this.atividades == null) {
             this.atividades = new ArrayList<>();
         }
         return Collections.unmodifiableList(atividades);
     }
 
     public List<Falta> getFaltas() {
-        if(this.faltas == null){
+        if (this.faltas == null) {
             this.faltas = new ArrayList<>();
         }
         return Collections.unmodifiableList(faltas);
     }
-    public void addAluno(Aluno a){
+
+    public void addAluno(Aluno a) {
         Objects.requireNonNull(a);
-        if(this.alunos == null){
+        if (this.alunos == null) {
             alunos = new ArrayList<>();
         }
-        if(alunos.contains(a)){
+        if (alunos.contains(a)) {
             throw new IllegalArgumentException("Aluno já está matriculado nessa turma");
-        } else{
+        } else {
             alunos.add(a);
         }
     }
-    public void addAtividade(Atividade a){
+
+    public void addAtividade(Atividade a) {
         Objects.requireNonNull(a);
-        if(atividades == null){
+        if (atividades == null) {
             atividades = new ArrayList<>();
         }
-        if(atividades.contains(a)){
+        if (atividades.contains(a)) {
             throw new IllegalArgumentException("atividade já está cadastrada nessa turma");
-        } else{
+        } else {
             atividades.add(a);
         }
     }
-    public void addFalta(Falta f){
+
+    public void addFalta(Falta f) {
         Objects.requireNonNull(f);
-        if(faltas == null){
+        if (faltas == null) {
             faltas = new ArrayList<>();
         }
-        if(faltas.contains(f)){
+        if (faltas.contains(f)) {
             throw new IllegalArgumentException("Falta já está cadastrada nessa turma");
-        } else{
+        } else {
             faltas.add(f);
         }
     }
-    public long getFaltaByAluno(Aluno a){
-        List<Falta> falta = faltas.stream().filter(x ->x.getAluno() == a).collect(Collectors.toList());
-        if(falta == null){
+
+    public long getFaltaByAluno(Aluno a) {
+        List<Falta> falta = faltas.stream().filter(x -> x.getAluno() == a).collect(Collectors.toList());
+        if (falta == null) {
             throw new IllegalArgumentException("Aluno não matriculado nessa turma ou com faltas ainda não lançadas.");
-        } else{
+        } else {
             return falta.get(0).getNumFaltas();
         }
     }
-    public double getMediaTurma(Aluno a){
+
+    public double getMediaTurma(Aluno a) {
         double media = 0;
         double valorMaximoAtividade = 0;
-        for(Atividade x: this.getAtividades()){
-            media+=x.getNotaByAluno(a);
-            valorMaximoAtividade+=x.getValor();
+        for (Atividade x : this.getAtividades()) {
+            media += x.getNotaByAluno(a);
+            valorMaximoAtividade += x.getValor();
         }
-        media = media/valorMaximoAtividade;
+        media = media / valorMaximoAtividade;
         return media;
     }
 

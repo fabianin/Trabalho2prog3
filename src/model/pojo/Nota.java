@@ -8,11 +8,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class Nota extends GenericEntity {
 
-	private double valorObtido;
-        @OneToOne
-	private Aluno aluno;
+    private double valorObtido;
+    @OneToOne
+    private Aluno aluno;
     @ManyToOne
-        private Atividade atividade;
+    private Atividade atividade;
 
     public Nota() {
     }
@@ -30,7 +30,6 @@ public class Nota extends GenericEntity {
     public Aluno getAluno() {
         return aluno;
     }
-    
 
     @Override
     public int hashCode() {
@@ -59,6 +58,5 @@ public class Nota extends GenericEntity {
     public String toString() {
         return "Nota{" + "valorObtido=" + valorObtido + ", aluno=" + aluno + '}';
     }
-    
 
 }
