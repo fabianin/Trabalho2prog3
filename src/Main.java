@@ -1,12 +1,10 @@
 
 //import DaoJPA.AlunoJpaDao;
-import model.dao.jpa.AlunoDaoJpa;
-import model.dao.jpa.TesteDaoJpa;
-import model.dao.jpa.TurmaDaoJpa;
+import model.dao.*;
+import model.dao.jpa.*;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.pojo.*;
-import model.dao.AlunoDao;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
         Turma t = new Turma(10, 10, "sala", 20, "10", null, null);
-        TurmaDaoJpa turmadao = new TurmaDaoJpa(emf);
+        TurmaDao turmadao = new TurmaDaoJpa(emf);
         turmadao.create(t);
         emf.close();
     }
