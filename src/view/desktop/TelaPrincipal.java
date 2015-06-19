@@ -6,6 +6,7 @@
 package view.desktop;
 
 import view.desktop.aluno.TelaCadastrarAluno;
+import view.desktop.aluno.TelaDeletarAluno;
 import view.desktop.aluno.TelaEditarAluno;
 
 /**
@@ -181,6 +182,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuAluno.add(MenuEditarAluno);
 
         MenuDeletarAluno.setText("Deletar aluno");
+        MenuDeletarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuDeletarAlunoActionPerformed(evt);
+            }
+        });
         MenuAluno.add(MenuDeletarAluno);
 
         MenuPrincipal.add(MenuAluno);
@@ -237,6 +243,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cadastrarAluno.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MenuCadastrarAlunoActionPerformed
+
+    private void MenuDeletarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDeletarAlunoActionPerformed
+        TelaDeletarAluno deletarAluno = new TelaDeletarAluno(this);
+        deletarAluno.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuDeletarAlunoActionPerformed
 
     /**
      * @param args the command line arguments

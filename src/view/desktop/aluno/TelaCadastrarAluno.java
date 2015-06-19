@@ -5,6 +5,7 @@
  */
 package view.desktop.aluno;
 
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import model.pojo.Aluno;
 import view.desktop.TelaPrincipal;
@@ -14,7 +15,7 @@ import view.desktop.TelaPrincipal;
  * @author Elias Júnior
  */
 public class TelaCadastrarAluno extends javax.swing.JFrame {
-    
+
     TelaPrincipal telaPrincipal;
 
     /**
@@ -47,8 +48,18 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
         CpfValue = new javax.swing.JTextField();
         ConfirmButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         PainelCadastrarAluno.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar aluno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
@@ -141,25 +152,44 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_NomeValueActionPerformed
 
     private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed
-        String nome;
-        long matricula, cpf;
-        nome = this.NomeValue.getText();
-        matricula = Long.parseLong(this.MatriculaValue.getText());
-        cpf = Long.parseLong(this.MatriculaValue.getText());
-        Aluno aluno = new Aluno(matricula, nome, cpf);
-        int resposta = JOptionPane.showConfirmDialog(this, "O aluno foi cadastrado. Deseja cadastrar outro?");
-        switch(resposta) {
-            case 0:
-                this.NomeValue.setText("");
-                this.CpfValue.setText("");
-                this.MatriculaValue.setText("");
-                break;
-            default:
-                this.telaPrincipal.setVisible(true);
-                this.setVisible(false);
-                break;
+        try {
+            String nome;
+            long matricula, cpf;
+            nome = this.NomeValue.getText();
+            matricula = Long.parseLong(this.MatriculaValue.getText());
+            cpf = Long.parseLong(this.MatriculaValue.getText());
+            Aluno aluno = new Aluno(matricula, nome, cpf);
+            int resposta = JOptionPane.showConfirmDialog(this, "O aluno foi cadastrado. Deseja cadastrar outro?");
+            switch (resposta) {
+                case 0:
+                    this.NomeValue.setText("");
+                    this.CpfValue.setText("");
+                    this.MatriculaValue.setText("");
+                    break;
+                default:
+                    this.closeFrame();
+                    break;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Há um erro no formato da matrícula ou CPF.");
         }
     }//GEN-LAST:event_ConfirmButtonActionPerformed
+
+    private void closeFrame() {
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSED));
+    }
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusLost
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (this.telaPrincipal != null) {
+            this.telaPrincipal.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
