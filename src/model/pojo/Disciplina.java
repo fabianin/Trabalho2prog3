@@ -35,8 +35,8 @@ public class Disciplina extends GenericEntity {
 
     public void addProfessorApto(Professor p) {
         Objects.requireNonNull(p);
-        if (professoresAptos == null) {
-            professoresAptos = new ArrayList<>();
+        if (this.professoresAptos == null) {
+            this.professoresAptos = new ArrayList<>();
         }
         this.professoresAptos.add(p);
     }
@@ -50,15 +50,15 @@ public class Disciplina extends GenericEntity {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getEmenta() {
-        return ementa;
+        return this.ementa;
     }
 
     public long getCargaHoraria() {
-        return cargaHoraria;
+        return this.cargaHoraria;
     }
 
     public List<Turma> getTurmas() {
