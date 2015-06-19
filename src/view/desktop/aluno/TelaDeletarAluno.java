@@ -5,17 +5,27 @@
  */
 package view.desktop.aluno;
 
+import java.awt.event.WindowEvent;
+import view.desktop.TelaPrincipal;
+
 /**
  *
  * @author Elias Júnior
  */
 public class TelaDeletarAluno extends javax.swing.JFrame {
 
+    private TelaPrincipal telaPrincipal;
+
     /**
      * Creates new form TelaDeletarAluno
      */
     public TelaDeletarAluno() {
         initComponents();
+    }
+
+    public TelaDeletarAluno(TelaPrincipal telaPrincipal) {
+        this();
+        this.telaPrincipal = telaPrincipal;
     }
 
     /**
@@ -32,7 +42,12 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deletar aluno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
@@ -115,11 +130,24 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (this.telaPrincipal != null) {
+            this.telaPrincipal.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void closeFrame() {
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSED));
+    }
 
     /**
      * @param args the command line arguments
