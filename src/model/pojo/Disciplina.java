@@ -61,10 +61,16 @@ public class Disciplina extends GenericEntity {
     }
 
     public List<Turma> getTurmas() {
+        if(this.turmas == null){
+            this.turmas = new ArrayList<>();
+        }
         return Collections.unmodifiableList(turmas);
     }
 
     public List<Professor> getProfessoresAptos() {
+        if(this.professoresAptos == null){
+            this.professoresAptos = new ArrayList<>();
+        }
         return Collections.unmodifiableList(professoresAptos);
     }
 

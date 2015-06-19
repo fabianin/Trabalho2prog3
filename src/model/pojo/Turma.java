@@ -38,8 +38,8 @@ public class Turma extends GenericEntity {
 
     public Turma(long ano, long periodo, String local, long numVagas, String horario, Disciplina disciplina, Professor professor) {
         Objects.requireNonNull(horario);
-//        Objects.requireNonNull(disciplina);
-//        Objects.requireNonNull(professor);
+        Objects.requireNonNull(disciplina);
+        Objects.requireNonNull(professor);
         if(numVagas<0){
             throw new IllegalArgumentException("Numero de vagas não pode ser negativo.");
         }
@@ -81,14 +81,23 @@ public class Turma extends GenericEntity {
     }
 
     public List<Aluno> getAlunos() {
+        if(this.alunos == null){
+            this.alunos = new ArrayList<>();
+        }
         return Collections.unmodifiableList(alunos);
     }
 
     public List<Atividade> getAtividades() {
+        if(this.atividades == null){
+            this.atividades = new ArrayList<>();
+        }
         return Collections.unmodifiableList(atividades);
     }
 
     public List<Falta> getFaltas() {
+        if(this.faltas == null){
+            this.faltas = new ArrayList<>();
+        }
         return Collections.unmodifiableList(faltas);
     }
     public void addAluno(Aluno a){

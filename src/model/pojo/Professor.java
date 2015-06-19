@@ -31,29 +31,37 @@ public class Professor extends Pessoa {
     }
 
     public List<Turma> getTurmas() {
+        if (this.turmas == null) {
+            this.turmas = new ArrayList<>();
+        }
         return Collections.unmodifiableList(turmas);
     }
 
     public List<Disciplina> getDisciplinasApto() {
+        if (this.disciplinasApto == null) {
+            this.disciplinasApto = new ArrayList<>();
+        }
         return Collections.unmodifiableList(disciplinasApto);
     }
-    public void addTurma(Turma t){
+
+    public void addTurma(Turma t) {
         Objects.requireNonNull(t);
-        if(this.turmas == null){
+        if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
-        if(this.turmas.contains(t)){
+        if (this.turmas.contains(t)) {
             throw new IllegalArgumentException("Essa turmna já está na lista de turmas desse professor");
-        } else{
+        } else {
             this.turmas.add(t);
         }
     }
-    public void addDisciplinaApto(Disciplina d){
+
+    public void addDisciplinaApto(Disciplina d) {
         Objects.requireNonNull(d);
-        if(disciplinasApto == null){
+        if (disciplinasApto == null) {
             disciplinasApto = new ArrayList<>();
         }
-        if(disciplinasApto.contains(d)){
+        if (disciplinasApto.contains(d)) {
             throw new IllegalArgumentException("Essa turmna já está na lista de turmas desse professor");
         } else {
             this.disciplinasApto.add(d);
@@ -67,7 +75,5 @@ public class Professor extends Pessoa {
     public void setDisciplinasApto(List<Disciplina> arrayList) {
         this.disciplinasApto = arrayList;
     }
-
-    
 
 }

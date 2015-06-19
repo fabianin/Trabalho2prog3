@@ -64,6 +64,9 @@ public class Atividade extends GenericEntity {
     }
 
     public List<Nota> getNotas() {
+        if(this.notas == null){
+            this.notas = new ArrayList<>();
+        }
         return Collections.unmodifiableList(notas);
     }
     public void addNota(Nota n){

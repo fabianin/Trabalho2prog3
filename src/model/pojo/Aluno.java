@@ -42,7 +42,7 @@ public class Aluno extends Pessoa {
     }
 
     public List<Turma> getTurmas() {
-        if(turmas == null){
+        if(this.turmas == null){
             this.turmas = new ArrayList<>();
         }
         return Collections.unmodifiableList(turmas);
