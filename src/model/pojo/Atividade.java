@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -17,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Atividade extends GenericEntity {
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
+    @Column(name ="diaDaAtividade" ,nullable = false)
     private String data;
     private double valor;
     @Column(nullable = false)
@@ -109,10 +107,7 @@ public class Atividade extends GenericEntity {
         if (!Objects.equals(this.tipo, other.tipo)) {
             return false;
         }
-        if (!Objects.equals(this.turma, other.turma)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.turma, other.turma);
     }
     
     public double getNotaByAluno(Aluno a){

@@ -17,7 +17,7 @@ public class Turma extends GenericEntity {
 
     private long ano;
     private long periodo;
-    @Column(name = "local", nullable = false)
+    @Column(name = "localAula", nullable = false)
     private String local;
     private long numVagas;
     private String horario;

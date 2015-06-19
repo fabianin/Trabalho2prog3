@@ -21,8 +21,11 @@ public class Teste implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private final String nome;
-    private final long matricula;
+    private String nome;
+    private long matricula;
+
+    public Teste() {
+    }
 
     public Teste(String nome, long matricula) {
         this.nome = nome;
@@ -54,10 +57,7 @@ public class Teste implements Serializable {
             return false;
         }
         Teste other = (Teste) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

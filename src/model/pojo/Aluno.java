@@ -1,6 +1,5 @@
 package model.pojo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +13,7 @@ import javax.persistence.ManyToMany;
  * @author Fabiano
  */
 @Entity
-public class Aluno extends Pessoa implements Serializable {
+public class Aluno extends Pessoa {
     @Column(updatable = false)
     private final long matricula;
     @ManyToMany

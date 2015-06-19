@@ -6,10 +6,13 @@ import javax.persistence.OneToOne;
 @Entity
 public class Falta extends GenericEntity {
 
-    private final long numFaltas;
+    private long numFaltas;
     
     @OneToOne
-    private final Aluno aluno;
+    private Aluno aluno;
+
+    public Falta() {
+    }
 
     public Falta(long numFaltas, Aluno aluno) {
         Objects.requireNonNull(aluno);

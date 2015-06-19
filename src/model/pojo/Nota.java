@@ -52,10 +52,7 @@ public class Nota extends GenericEntity {
         if (Double.doubleToLongBits(this.valorObtido) != Double.doubleToLongBits(other.valorObtido)) {
             return false;
         }
-        if (!Objects.equals(this.aluno, other.aluno)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.aluno, other.aluno);
     }
 
     @Override

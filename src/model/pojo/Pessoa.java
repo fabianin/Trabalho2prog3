@@ -1,12 +1,10 @@
 package model.pojo;
 
-import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Pessoa extends GenericEntity implements Serializable  {
+public abstract class Pessoa extends GenericEntity {
     private final String nome;
     private final long cpf;
 
