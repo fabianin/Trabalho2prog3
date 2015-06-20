@@ -5,6 +5,23 @@
  */
 package view.desktop;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import model.dao.AlunoDao;
+import model.dao.AtividadeDao;
+import model.dao.DisciplinaDao;
+import model.dao.FaltaDao;
+import model.dao.NotaDao;
+import model.dao.ProfessorDao;
+import model.dao.TurmaDao;
+import model.dao.jpa.AlunoDaoJpa;
+import model.dao.jpa.AtividadeDaoJpa;
+import model.dao.jpa.DisciplinaDaoJpa;
+import model.dao.jpa.FaltaDaoJpa;
+import model.dao.jpa.NotaDaoJpa;
+import model.dao.jpa.ProfessorDaoJpa;
+import model.dao.jpa.TurmaDaoJpa;
+import model.pojo.Turma;
 import view.desktop.aluno.TelaCadastrarAluno;
 import view.desktop.aluno.TelaDeletarAluno;
 import view.desktop.aluno.TelaEditarAluno;
@@ -15,13 +32,32 @@ import view.desktop.aluno.TelaEditarAluno;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
+    public static final AlunoDao alunoDao = new AlunoDaoJpa(emf);
+    public static final DisciplinaDao disciplinaDao = new DisciplinaDaoJpa(emf);
+    public static final FaltaDao faltaDao = new FaltaDaoJpa(emf);
+    public static final NotaDao notaDao = new NotaDaoJpa(emf);
+    public static final ProfessorDao professorDao = new ProfessorDaoJpa(emf);
+    public static final TurmaDao turmaDao = new TurmaDaoJpa(emf);
+    
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        setInitData();
     }
-
+    
+    /**
+     * Define o conteúdo inicial da tela
+     */
+    public void setInitData() {
+        this.AlunosCadastradosValue.setText(String.valueOf(TelaPrincipal.alunoDao.getAlunoCount()));
+        this.DisciplinasCadastradasValue.setText(String.valueOf(TelaPrincipal.disciplinaDao.getDisciplinaCount()));
+        this.ProfessoresCadastradosValue.setText(String.valueOf(TelaPrincipal.professorDao.getProfessorCount()));
+        this.TurmasCadastradasValue.setText(String.valueOf(TelaPrincipal.turmaDao.getTurmaCount()));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,9 +77,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TurmasCadastradasLabel = new javax.swing.JLabel();
         TurmasCadastradasValue = new javax.swing.JLabel();
         PainelInstrucoes = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        instrucoesLinha1 = new javax.swing.JLabel();
+        instrucoesLinha2 = new javax.swing.JLabel();
+        instrucoesLinha3 = new javax.swing.JLabel();
         MenuPrincipal = new javax.swing.JMenuBar();
         MenuAluno = new javax.swing.JMenu();
         MenuCadastrarAluno = new javax.swing.JMenuItem();
@@ -127,12 +163,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         PainelInstrucoes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Instruções", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
-        jLabel1.setText("Seja bem vindo ao sistema de gerenciamento escolar. No menu superior você deve abrir a sessão que deseja, por exemplo:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(1024, 14));
+        instrucoesLinha1.setText("Seja bem vindo ao sistema de gerenciamento escolar. No menu superior você deve abrir a sessão que deseja, por exemplo:");
+        instrucoesLinha1.setMaximumSize(new java.awt.Dimension(1024, 14));
 
-        jLabel2.setText("Caso você queira gerenciar os alunos, como cadastrar, clique na aba \"Aluno\" e selecione \"Cadastrar aluno\". ");
+        instrucoesLinha2.setText("Caso você queira gerenciar os alunos, como cadastrar, clique na aba \"Aluno\" e selecione \"Cadastrar aluno\". ");
 
-        jLabel3.setText("Sempre que você realizar uma ação no programa, automaticamente ele será salvo e não será possível restaurar os dados anteriores.");
+        instrucoesLinha3.setText("Sempre que você realizar uma ação no programa, automaticamente ele será salvo e não será possível restaurar os dados anteriores.");
 
         javax.swing.GroupLayout PainelInstrucoesLayout = new javax.swing.GroupLayout(PainelInstrucoes);
         PainelInstrucoes.setLayout(PainelInstrucoesLayout);
@@ -141,13 +177,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(PainelInstrucoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PainelInstrucoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(instrucoesLinha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PainelInstrucoesLayout.createSequentialGroup()
                         .addGroup(PainelInstrucoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PainelInstrucoesLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel3))
+                                .addComponent(instrucoesLinha2))
+                            .addComponent(instrucoesLinha3))
                         .addGap(0, 334, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -155,11 +191,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             PainelInstrucoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelInstrucoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(instrucoesLinha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(instrucoesLinha2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(instrucoesLinha3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -235,7 +271,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaEditarAluno editarAluno = new TelaEditarAluno(this);
         editarAluno.setVisible(true);
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_MenuEditarAlunoActionPerformed
 
     private void MenuCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarAlunoActionPerformed
@@ -305,8 +341,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel ProfessoresCadastradosValue;
     private javax.swing.JLabel TurmasCadastradasLabel;
     private javax.swing.JLabel TurmasCadastradasValue;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel instrucoesLinha1;
+    private javax.swing.JLabel instrucoesLinha2;
+    private javax.swing.JLabel instrucoesLinha3;
     // End of variables declaration//GEN-END:variables
 }

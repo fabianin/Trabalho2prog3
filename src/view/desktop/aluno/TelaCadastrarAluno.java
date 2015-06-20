@@ -159,6 +159,7 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
             matricula = Long.parseLong(this.MatriculaValue.getText());
             cpf = Long.parseLong(this.MatriculaValue.getText());
             Aluno aluno = new Aluno(matricula, nome, cpf);
+            TelaPrincipal.alunoDao.create(aluno);
             int resposta = JOptionPane.showConfirmDialog(this, "O aluno foi cadastrado. Deseja cadastrar outro?");
             switch (resposta) {
                 case 0:

@@ -248,14 +248,14 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" max="32767" attributes="0"/>
+                      <Component id="instrucoesLinha1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="instrucoesLinha2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="instrucoesLinha3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="334" max="32767" attributes="0"/>
                       </Group>
@@ -268,18 +268,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="instrucoesLinha1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="instrucoesLinha2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="instrucoesLinha3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="instrucoesLinha1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Seja bem vindo ao sistema de gerenciamento escolar. No menu superior voc&#xea; deve abrir a sess&#xe3;o que deseja, por exemplo:"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -287,12 +287,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="instrucoesLinha2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Caso voc&#xea; queira gerenciar os alunos, como cadastrar, clique na aba &quot;Aluno&quot; e selecione &quot;Cadastrar aluno&quot;. "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="instrucoesLinha3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sempre que voc&#xea; realizar uma a&#xe7;&#xe3;o no programa, automaticamente ele ser&#xe1; salvo e n&#xe3;o ser&#xe1; poss&#xed;vel restaurar os dados anteriores."/>
           </Properties>
