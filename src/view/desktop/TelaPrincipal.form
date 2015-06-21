@@ -17,14 +17,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadastrarAlunoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuEditarAluno">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar aluno"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuEditarAlunoActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuDeletarAluno">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deletar aluno"/>
@@ -44,16 +36,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar professor"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuEditarProfessor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar professor"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadastrarProfessorActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuDeletarProfessor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deletar professor"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuDeletarProfessorActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -187,7 +180,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="AlunosCadastradosValue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="ProfessoresCadastradosLabel">
@@ -200,7 +193,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ProfessoresCadastradosValue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="DisciplinasCadastradasLabel">
@@ -213,7 +206,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="DisciplinasCadastradasValue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="TurmasCadastradasLabel">
@@ -226,7 +219,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="TurmasCadastradasValue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
       </SubComponents>

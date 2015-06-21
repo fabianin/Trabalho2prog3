@@ -24,7 +24,8 @@ import model.dao.jpa.TurmaDaoJpa;
 import model.pojo.Turma;
 import view.desktop.aluno.TelaCadastrarAluno;
 import view.desktop.aluno.TelaDeletarAluno;
-import view.desktop.aluno.TelaEditarAluno;
+import view.desktop.professor.TelaCadastrarProfessor;
+import view.desktop.professor.TelaDeletarProfessor;
 
 /**
  *
@@ -32,7 +33,7 @@ import view.desktop.aluno.TelaEditarAluno;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
+    public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("eliasjnior");
     public static final AlunoDao alunoDao = new AlunoDaoJpa(emf);
     public static final DisciplinaDao disciplinaDao = new DisciplinaDaoJpa(emf);
     public static final FaltaDao faltaDao = new FaltaDaoJpa(emf);
@@ -83,11 +84,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuPrincipal = new javax.swing.JMenuBar();
         MenuAluno = new javax.swing.JMenu();
         MenuCadastrarAluno = new javax.swing.JMenuItem();
-        MenuEditarAluno = new javax.swing.JMenuItem();
         MenuDeletarAluno = new javax.swing.JMenuItem();
         MenuProfessor = new javax.swing.JMenu();
         MenuCadastrarProfessor = new javax.swing.JMenuItem();
-        MenuEditarProfessor = new javax.swing.JMenuItem();
         MenuDeletarProfessor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,22 +96,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         AlunosCadastradosLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         AlunosCadastradosLabel.setText("Alunos cadastrados:");
 
-        AlunosCadastradosValue.setText("10");
+        AlunosCadastradosValue.setText("0");
 
         ProfessoresCadastradosLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         ProfessoresCadastradosLabel.setText("Professores cadastrados:");
 
-        ProfessoresCadastradosValue.setText("10");
+        ProfessoresCadastradosValue.setText("0");
 
         DisciplinasCadastradasLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         DisciplinasCadastradasLabel.setText("Disciplinas cadastradas:");
 
-        DisciplinasCadastradasValue.setText("10");
+        DisciplinasCadastradasValue.setText("0");
 
         TurmasCadastradasLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TurmasCadastradasLabel.setText("Turmas cadastradas:");
 
-        TurmasCadastradasValue.setText("10");
+        TurmasCadastradasValue.setText("0");
 
         javax.swing.GroupLayout PanelEstatisticasLayout = new javax.swing.GroupLayout(PanelEstatisticas);
         PanelEstatisticas.setLayout(PanelEstatisticasLayout);
@@ -209,14 +208,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         MenuAluno.add(MenuCadastrarAluno);
 
-        MenuEditarAluno.setText("Editar aluno");
-        MenuEditarAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuEditarAlunoActionPerformed(evt);
-            }
-        });
-        MenuAluno.add(MenuEditarAluno);
-
         MenuDeletarAluno.setText("Deletar aluno");
         MenuDeletarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,12 +221,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuProfessor.setText("Professor");
 
         MenuCadastrarProfessor.setText("Cadastrar professor");
+        MenuCadastrarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarProfessorActionPerformed(evt);
+            }
+        });
         MenuProfessor.add(MenuCadastrarProfessor);
 
-        MenuEditarProfessor.setText("Editar professor");
-        MenuProfessor.add(MenuEditarProfessor);
-
         MenuDeletarProfessor.setText("Deletar professor");
+        MenuDeletarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuDeletarProfessorActionPerformed(evt);
+            }
+        });
         MenuProfessor.add(MenuDeletarProfessor);
 
         MenuPrincipal.add(MenuProfessor);
@@ -267,13 +265,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MenuEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEditarAlunoActionPerformed
-        TelaEditarAluno editarAluno = new TelaEditarAluno(this);
-        editarAluno.setVisible(true);
-        this.setVisible(false);
-
-    }//GEN-LAST:event_MenuEditarAlunoActionPerformed
-
     private void MenuCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarAlunoActionPerformed
         TelaCadastrarAluno cadastrarAluno = new TelaCadastrarAluno(this);
         cadastrarAluno.setVisible(true);
@@ -285,6 +276,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         deletarAluno.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MenuDeletarAlunoActionPerformed
+
+    private void MenuCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarProfessorActionPerformed
+        TelaCadastrarProfessor cadastrarProfessor = new TelaCadastrarProfessor(this);
+        cadastrarProfessor.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuCadastrarProfessorActionPerformed
+
+    private void MenuDeletarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDeletarProfessorActionPerformed
+        TelaDeletarProfessor deletarProfessor = new TelaDeletarProfessor(this);
+        deletarProfessor.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuDeletarProfessorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,8 +334,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuCadastrarProfessor;
     private javax.swing.JMenuItem MenuDeletarAluno;
     private javax.swing.JMenuItem MenuDeletarProfessor;
-    private javax.swing.JMenuItem MenuEditarAluno;
-    private javax.swing.JMenuItem MenuEditarProfessor;
     private javax.swing.JMenuBar MenuPrincipal;
     private javax.swing.JMenu MenuProfessor;
     private javax.swing.JPanel PainelInstrucoes;

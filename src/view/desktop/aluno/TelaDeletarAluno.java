@@ -6,6 +6,14 @@
 package view.desktop.aluno;
 
 import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import model.dao.jpa.expections.NonexistentEntityException;
+import model.pojo.Aluno;
 import view.desktop.TelaPrincipal;
 
 /**
@@ -21,6 +29,7 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
      */
     public TelaDeletarAluno() {
         initComponents();
+        carregaListaAlunos();
     }
 
     public TelaDeletarAluno(TelaPrincipal telaPrincipal) {
@@ -40,7 +49,7 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         PainelDeletarAluno = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaAlunos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        DeletarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -80,6 +89,7 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         });
         ListaAlunos.setEditingColumn(0);
         ListaAlunos.setEditingRow(0);
+        ListaAlunos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(ListaAlunos);
         if (ListaAlunos.getColumnModel().getColumnCount() > 0) {
             ListaAlunos.getColumnModel().getColumn(0).setHeaderValue("ID");
@@ -87,10 +97,10 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
             ListaAlunos.getColumnModel().getColumn(2).setHeaderValue("Matrícula");
         }
 
-        jButton1.setText("Deletar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        DeletarButton.setText("Deletar");
+        DeletarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                DeletarButtonActionPerformed(evt);
             }
         });
 
@@ -104,7 +114,7 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelDeletarAlunoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(DeletarButton)))
                 .addContainerGap())
         );
         PainelDeletarAlunoLayout.setVerticalGroup(
@@ -113,7 +123,7 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(DeletarButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -138,12 +148,25 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void DeletarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarButtonActionPerformed
+        int row = this.ListaAlunos.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Você precisa selecionar uma linha para deletar.");
+        } else {
+            Long id = (Long) this.ListaAlunos.getValueAt(row, 0);
+            try {
+                TelaPrincipal.alunoDao.destroy(id);
+                this.carregaListaAlunos();
+                JOptionPane.showMessageDialog(this, "Aluno removido com sucesso!");
+            } catch (NonexistentEntityException ex) {
+                JOptionPane.showMessageDialog(this, "Houve um erro ao tentar deletar um aluno inexistente.");
+            }
+        }
+    }//GEN-LAST:event_DeletarButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (this.telaPrincipal != null) {
+            this.telaPrincipal.setInitData();
             this.telaPrincipal.setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosing
@@ -152,6 +175,21 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         this.dispose();
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSED));
+    }
+
+    private void carregaListaAlunos() {
+        List<Aluno> alunos = TelaPrincipal.alunoDao.findAlunoEntities();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        dtm.setColumnIdentifiers(new Object[]{"ID", "Nome", "CPF"});
+        alunos.forEach((a) -> {
+            dtm.addRow(new Object[]{a.getId(), a.getNome(), a.getCpf()});
+        });
+        this.ListaAlunos.setModel(dtm);
     }
 
     /**
@@ -190,9 +228,9 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DeletarButton;
     private javax.swing.JTable ListaAlunos;
     private javax.swing.JPanel PainelDeletarAluno;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -188,6 +188,7 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (this.telaPrincipal != null) {
+            this.telaPrincipal.setInitData();
             this.telaPrincipal.setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosing
