@@ -24,6 +24,8 @@ import model.dao.jpa.TurmaDaoJpa;
 import model.pojo.Turma;
 import view.desktop.aluno.TelaCadastrarAluno;
 import view.desktop.aluno.TelaDeletarAluno;
+import view.desktop.disciplina.TelaCadastrarDisciplina;
+import view.desktop.disciplina.TelaDeletarDisciplina;
 import view.desktop.professor.TelaCadastrarProfessor;
 import view.desktop.professor.TelaDeletarProfessor;
 
@@ -88,6 +90,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuProfessor = new javax.swing.JMenu();
         MenuCadastrarProfessor = new javax.swing.JMenuItem();
         MenuDeletarProfessor = new javax.swing.JMenuItem();
+        MenuDisciplina = new javax.swing.JMenu();
+        MenuCadastrarDisciplina = new javax.swing.JMenuItem();
+        MenuDeletarDisciplina = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -238,6 +243,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         MenuPrincipal.add(MenuProfessor);
 
+        MenuDisciplina.setText("Disciplina");
+
+        MenuCadastrarDisciplina.setText("Cadastrar disciplina");
+        MenuCadastrarDisciplina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarDisciplinaActionPerformed(evt);
+            }
+        });
+        MenuDisciplina.add(MenuCadastrarDisciplina);
+
+        MenuDeletarDisciplina.setText("Deletar disciplina");
+        MenuDeletarDisciplina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuDeletarDisciplinaActionPerformed(evt);
+            }
+        });
+        MenuDisciplina.add(MenuDeletarDisciplina);
+
+        MenuPrincipal.add(MenuDisciplina);
+
         setJMenuBar(MenuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,6 +314,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MenuDeletarProfessorActionPerformed
 
+    private void MenuCadastrarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarDisciplinaActionPerformed
+//        TelaCadastrarDisciplina cadastrarDisciplina = new CadastrarDisciplina(this);
+//        cadastrarDisciplina.setVisible(true);
+//        this.setVisible(false);
+    }//GEN-LAST:event_MenuCadastrarDisciplinaActionPerformed
+
+    private void MenuDeletarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDeletarDisciplinaActionPerformed
+//        TelaDeletarDisciplina deletarDisciplina = new DeletarDisciplina(this);
+//        deletarDisciplina.setVisible(true);
+//        this.setVisible(false);
+    }//GEN-LAST:event_MenuDeletarDisciplinaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +337,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -331,9 +368,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel DisciplinasCadastradasValue;
     private javax.swing.JMenu MenuAluno;
     private javax.swing.JMenuItem MenuCadastrarAluno;
+    private javax.swing.JMenuItem MenuCadastrarDisciplina;
     private javax.swing.JMenuItem MenuCadastrarProfessor;
     private javax.swing.JMenuItem MenuDeletarAluno;
+    private javax.swing.JMenuItem MenuDeletarDisciplina;
     private javax.swing.JMenuItem MenuDeletarProfessor;
+    private javax.swing.JMenu MenuDisciplina;
     private javax.swing.JMenuBar MenuPrincipal;
     private javax.swing.JMenu MenuProfessor;
     private javax.swing.JPanel PainelInstrucoes;
