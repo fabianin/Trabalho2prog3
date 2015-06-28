@@ -5,17 +5,33 @@
  */
 package view.desktop.disciplina;
 
+import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.dao.jpa.expections.NonexistentEntityException;
+import model.pojo.Disciplina;
+import view.desktop.TelaPrincipal;
+
 /**
  *
  * @author Elias Júnior
  */
 public class TelaDeletarDisciplina extends javax.swing.JFrame {
 
+    TelaPrincipal telaPrincipal;
+
     /**
      * Creates new form TelaDeletarDisciplina
+     *
+     * @param telaPrincipal
      */
-    public TelaDeletarDisciplina() {
+    public TelaDeletarDisciplina(TelaPrincipal telaPrincipal) {
         initComponents();
+        this.carregarListaDisciplinas();
+        this.telaPrincipal = telaPrincipal;
     }
 
     /**
@@ -27,57 +43,132 @@ public class TelaDeletarDisciplina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        PainelDeletarDisciplina = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListaDisciplinas = new javax.swing.JTable();
+        DeletarButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        PainelDeletarDisciplina.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deletar disciplina", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+
+        ListaDisciplinas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(ListaDisciplinas);
+
+        DeletarButton.setText("Deletar");
+        DeletarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletarButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PainelDeletarDisciplinaLayout = new javax.swing.GroupLayout(PainelDeletarDisciplina);
+        PainelDeletarDisciplina.setLayout(PainelDeletarDisciplinaLayout);
+        PainelDeletarDisciplinaLayout.setHorizontalGroup(
+            PainelDeletarDisciplinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PainelDeletarDisciplinaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelDeletarDisciplinaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DeletarButton)
+                .addContainerGap())
+        );
+        PainelDeletarDisciplinaLayout.setVerticalGroup(
+            PainelDeletarDisciplinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PainelDeletarDisciplinaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DeletarButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PainelDeletarDisciplina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PainelDeletarDisciplina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaDeletarDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaDeletarDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaDeletarDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaDeletarDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (this.telaPrincipal != null) {
+            this.telaPrincipal.setInitData();
+            this.telaPrincipal.setVisible(true);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_formWindowClosing
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaDeletarDisciplina().setVisible(true);
+    private void DeletarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarButtonActionPerformed
+        int row = this.ListaDisciplinas.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Você precisa selecionar uma linha para deletar.");
+        } else {
+            Long id = (Long) this.ListaDisciplinas.getValueAt(row, 0);
+            try {
+                TelaPrincipal.disciplinaDao.destroy(id);
+                this.carregarListaDisciplinas();
+                JOptionPane.showMessageDialog(this, "Disciplina removida com sucesso!");
+            } catch (NonexistentEntityException ex) {
+                JOptionPane.showMessageDialog(this, "Houve um erro ao tentar deletar uma disciplina inexistente.");
             }
+        }
+    }//GEN-LAST:event_DeletarButtonActionPerformed
+
+    private void closeFrame() {
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSED));
+    }
+
+    private void carregarListaDisciplinas() {
+        List<Disciplina> disciplinas = TelaPrincipal.disciplinaDao.findDisciplinaEntities();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        dtm.setColumnIdentifiers(new Object[]{"ID", "Nome", "Ementa", "Carga Horária"});
+        disciplinas.forEach((d) -> {
+            dtm.addRow(new Object[]{d.getId(), d.getNome(), d.getEmenta(), d.getCargaHoraria()});
         });
+        this.ListaDisciplinas.setModel(dtm);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DeletarButton;
+    private javax.swing.JTable ListaDisciplinas;
+    private javax.swing.JPanel PainelDeletarDisciplina;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

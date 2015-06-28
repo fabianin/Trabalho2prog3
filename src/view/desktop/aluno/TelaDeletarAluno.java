@@ -24,16 +24,9 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal;
 
-    /**
-     * Creates new form TelaDeletarAluno
-     */
-    public TelaDeletarAluno() {
+    public TelaDeletarAluno(TelaPrincipal telaPrincipal) {
         initComponents();
         carregaListaAlunos();
-    }
-
-    public TelaDeletarAluno(TelaPrincipal telaPrincipal) {
-        this();
         this.telaPrincipal = telaPrincipal;
     }
 

@@ -23,16 +23,9 @@ public class TelaDeletarProfessor extends javax.swing.JFrame {
 
     TelaPrincipal telaPrincipal;
 
-    /**
-     * Creates new form TelaDeletarProfessor
-     */
-    public TelaDeletarProfessor() {
+    public TelaDeletarProfessor(TelaPrincipal telaPrincipal) {
         initComponents();
         carregarListaProfessores();
-    }
-
-    public TelaDeletarProfessor(TelaPrincipal telaPrincipal) {
-        this();
         this.telaPrincipal = telaPrincipal;
     }
 

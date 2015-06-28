@@ -18,15 +18,8 @@ public class TelaCadastrarProfessor extends javax.swing.JFrame {
 
     TelaPrincipal telaPrincipal;
 
-    /**
-     * Creates new form TelaCadastrarProfessor
-     */
-    public TelaCadastrarProfessor() {
-        initComponents();
-    }
-
     public TelaCadastrarProfessor(TelaPrincipal telaPrincipal) {
-        this();
+        initComponents();
         this.telaPrincipal = telaPrincipal;
     }
 
