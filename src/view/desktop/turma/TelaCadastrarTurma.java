@@ -220,6 +220,13 @@ public class TelaCadastrarTurma extends javax.swing.JFrame {
         try {
             String disciplinaStr = (String) this.DisciplinaValue.getSelectedItem();
             String professorStr = (String) this.ProfessorValue.getSelectedItem();
+            if (disciplinaStr == null) {
+                JOptionPane.showMessageDialog(this, "Você deve selecionar uma disciplina.");
+                return;
+            } else if (professorStr == null) {
+                JOptionPane.showMessageDialog(this, "Você deve selecionar um professor.");
+                return;
+            }
             String[] disciplinaStrArray = disciplinaStr.split(":");
             String[] professorStrArray = professorStr.split(":");
             long disciplinaId = Long.parseLong(disciplinaStrArray[0]);
