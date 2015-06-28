@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 /**
@@ -15,9 +16,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Aluno extends Pessoa {
 
-    @Column(updatable = false)
     private long matricula;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Turma> turmas;
 
     public Aluno() {
