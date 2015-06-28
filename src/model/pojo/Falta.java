@@ -63,4 +63,12 @@ public class Falta extends GenericEntity {
         return "Falta{" + "numFaltas=" + numFaltas + ", aluno=" + aluno + '}';
     }
 
+    public void setNumFaltas(long numFaltas) {
+        this.numFaltas = numFaltas;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
 }

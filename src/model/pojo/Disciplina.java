@@ -112,4 +112,20 @@ public class Disciplina extends GenericEntity {
         this.professoresAptos = arrayList;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmenta(String ementa) {
+        this.ementa = ementa;
+    }
+
+    public void setCargaHoraria(long cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
 }

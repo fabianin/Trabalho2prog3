@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.transaction.Transactional;
 import model.pojo.Disciplina;
 import model.pojo.Professor;
 import model.pojo.Turma;
@@ -216,6 +217,7 @@ public class TelaCadastrarTurma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    @Transactional
     private void CadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarButtonActionPerformed
         try {
             String disciplinaStr = (String) this.DisciplinaValue.getSelectedItem();
@@ -238,6 +240,7 @@ public class TelaCadastrarTurma extends javax.swing.JFrame {
             String horario = this.HorarioValue.getText();
             Disciplina disciplina = TelaPrincipal.disciplinaDao.findDisciplina(disciplinaId);
             Professor professor = TelaPrincipal.professorDao.findProfessor(professorId);
+
             if (disciplina == null) {
                 JOptionPane.showMessageDialog(this, "Disciplina não encontrada.");
             } else if (professor == null) {

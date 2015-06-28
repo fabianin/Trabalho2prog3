@@ -131,4 +131,24 @@ public class Atividade extends GenericEntity {
         this.turma = turma;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
 }

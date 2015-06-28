@@ -169,4 +169,32 @@ public class Turma extends GenericEntity {
         this.atividades = arrayList;
     }
 
+    public void setAno(long ano) {
+        this.ano = ano;
+    }
+
+    public void setPeriodo(long periodo) {
+        this.periodo = periodo;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setNumVagas(long numVagas) {
+        this.numVagas = numVagas;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public void setDisciplinas(Disciplina disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
+    public void setFaltas(List<Falta> faltas) {
+        this.faltas = faltas;
+    }
+
 }

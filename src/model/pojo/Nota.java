@@ -59,4 +59,16 @@ public class Nota extends GenericEntity {
         return "Nota{" + "valorObtido=" + valorObtido + ", aluno=" + aluno + '}';
     }
 
+    public void setValorObtido(double valorObtido) {
+        this.valorObtido = valorObtido;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public void setAtividade(Atividade atividade) {
+        this.atividade = atividade;
+    }
+
 }
