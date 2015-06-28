@@ -81,4 +81,8 @@ public class Professor extends Pessoa {
         this.disciplinasApto = arrayList;
     }
 
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
 }

@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 public class Aluno extends Pessoa {
 
     @Column(updatable = false)
-    private final long matricula;
+    private long matricula;
     @ManyToMany
     private List<Turma> turmas;
 
@@ -74,6 +74,10 @@ public class Aluno extends Pessoa {
 
     public void setTurmas(List<Turma> turmasNew) {
         this.turmas = turmasNew;
+    }
+
+    public void setMatricula(long matricula) {
+        this.matricula = matricula;
     }
 
 }

@@ -27,6 +27,9 @@ import model.dao.jpa.TurmaDaoJpa;
 import model.pojo.Turma;
 import view.desktop.aluno.TelaCadastrarAluno;
 import view.desktop.aluno.TelaDeletarAluno;
+import view.desktop.aluno.TelaEditarAluno;
+import view.desktop.aluno.TelaInformacoesAluno;
+import view.desktop.aluno.TelaListarAlunos;
 import view.desktop.disciplina.TelaCadastrarDisciplina;
 import view.desktop.disciplina.TelaDeletarDisciplina;
 import view.desktop.professor.TelaCadastrarProfessor;
@@ -39,7 +42,7 @@ import view.desktop.turma.TelaDeletarTurma;
  * @author Elias Júnior
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     public static EntityManagerFactory emf;
     public static AlunoDao alunoDao;
     public static DisciplinaDao disciplinaDao;
@@ -66,11 +69,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.disableEverything(ex.getMessage());
         }
     }
-    
+
     public void disableEverything() {
         this.disableEverything("Erro desconhecido.");
     }
-    
+
     public void disableEverything(String msg) {
         this.setVisible(false);
         JOptionPane.showMessageDialog(this, msg);
@@ -116,6 +119,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCadastrarAluno = new javax.swing.JMenuItem();
         MenuDeletarAluno = new javax.swing.JMenuItem();
         MenuEditarAluno = new javax.swing.JMenuItem();
+        MenuListarAlunos = new javax.swing.JMenuItem();
+        MenuInformacoesAluno = new javax.swing.JMenuItem();
         MenuProfessor = new javax.swing.JMenu();
         MenuCadastrarProfessor = new javax.swing.JMenuItem();
         MenuDeletarProfessor = new javax.swing.JMenuItem();
@@ -253,6 +258,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         MenuAluno.setText("Aluno");
+        MenuAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAlunoActionPerformed(evt);
+            }
+        });
 
         MenuCadastrarAluno.setText("Cadastrar aluno");
         MenuCadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +281,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuAluno.add(MenuDeletarAluno);
 
         MenuEditarAluno.setText("Editar aluno");
+        MenuEditarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEditarAlunoActionPerformed(evt);
+            }
+        });
         MenuAluno.add(MenuEditarAluno);
+
+        MenuListarAlunos.setText("Listar alunos");
+        MenuListarAlunos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListarAlunosActionPerformed(evt);
+            }
+        });
+        MenuAluno.add(MenuListarAlunos);
+
+        MenuInformacoesAluno.setText("Informações de aluno");
+        MenuInformacoesAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuInformacoesAlunoActionPerformed(evt);
+            }
+        });
+        MenuAluno.add(MenuInformacoesAluno);
 
         MenuPrincipal.add(MenuAluno);
 
@@ -454,6 +485,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MenuDeletarTurmaActionPerformed
 
+    private void MenuEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEditarAlunoActionPerformed
+        TelaEditarAluno editarAluno = new TelaEditarAluno(this);
+        editarAluno.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuEditarAlunoActionPerformed
+
+    private void MenuAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAlunoActionPerformed
+
+    }//GEN-LAST:event_MenuAlunoActionPerformed
+
+    private void MenuListarAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarAlunosActionPerformed
+        TelaListarAlunos listarAlunos = new TelaListarAlunos(this);
+        listarAlunos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuListarAlunosActionPerformed
+
+    private void MenuInformacoesAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuInformacoesAlunoActionPerformed
+        TelaInformacoesAluno informacoesAluno = new TelaInformacoesAluno(this);
+        informacoesAluno.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuInformacoesAlunoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -515,7 +568,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuEditarNota;
     private javax.swing.JMenuItem MenuEditarProfessor;
     private javax.swing.JMenuItem MenuEditarTurma;
+    private javax.swing.JMenuItem MenuInformacoesAluno;
     private javax.swing.JMenuItem MenuLancarNota;
+    private javax.swing.JMenuItem MenuListarAlunos;
     private javax.swing.JMenu MenuNota;
     private javax.swing.JMenuBar MenuPrincipal;
     private javax.swing.JMenu MenuProfessor;

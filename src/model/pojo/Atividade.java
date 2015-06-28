@@ -115,7 +115,7 @@ public class Atividade extends GenericEntity {
 
     public double getNotaByAluno(Aluno a) {
         List<Nota> nota = this.getNotas().stream().filter(x -> x.getAluno() == a).collect(Collectors.toList());
-        if (nota == null) {
+        if (nota.size() == 0) {
             throw new IllegalArgumentException("Aluno não matriculado nessa turma ou com nota ainda não lançada.");
         } else {
             return nota.get(0).getValorObtido();

@@ -157,9 +157,9 @@ public class TelaDeletarAluno extends javax.swing.JFrame {
                 return false;
             }
         };
-        dtm.setColumnIdentifiers(new Object[]{"ID", "Nome", "CPF"});
+        dtm.setColumnIdentifiers(new Object[]{"ID", "Nome", "Matrícula", "CPF"});
         alunos.forEach((a) -> {
-            dtm.addRow(new Object[]{a.getId(), a.getNome(), a.getCpf()});
+            dtm.addRow(new Object[]{a.getId(), a.getNome(), a.getMatricula(), a.getCpf()});
         });
         this.ListaAlunos.setModel(dtm);
     }

@@ -6,8 +6,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Pessoa extends GenericEntity {
 
-    private final String nome;
-    private final long cpf;
+    private String nome;
+    private long cpf;
 
     public Pessoa() {
         this.cpf = 0;
@@ -25,6 +25,14 @@ public abstract class Pessoa extends GenericEntity {
     public Pessoa(String nome, long cpf) {
         Objects.requireNonNull(nome);
         this.nome = nome;
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
