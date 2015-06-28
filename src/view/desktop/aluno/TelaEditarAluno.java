@@ -227,8 +227,8 @@ public class TelaEditarAluno extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Não foi encontrado o aluno.");
             } else {
                 aluno.setNome(nome);
-                aluno.setCpf(cpf);
                 aluno.setMatricula(matricula);
+                aluno.setCpf(cpf);
                 TelaPrincipal.alunoDao.edit(aluno);
                 JOptionPane.showMessageDialog(this, "Aluno salvo com sucesso.");
                 this.limparPainelAluno();

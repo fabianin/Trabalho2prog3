@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -14,10 +15,10 @@ public class Disciplina extends GenericEntity {
     private String nome;
     private String ementa;
     private long cargaHoraria;
-    @OneToMany(mappedBy = "disciplinas")
-    private List<Turma> turmas;
-    @ManyToMany
-    private List<Professor> professoresAptos;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "disciplinas")
+    private List<Turma> turmas = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Professor> professoresAptos = new ArrayList<>();
 
     public Disciplina() {
     }
