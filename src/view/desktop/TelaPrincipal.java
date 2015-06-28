@@ -32,6 +32,7 @@ import view.desktop.aluno.TelaInformacoesAluno;
 import view.desktop.aluno.TelaListarAlunos;
 import view.desktop.disciplina.TelaCadastrarDisciplina;
 import view.desktop.disciplina.TelaDeletarDisciplina;
+import view.desktop.disciplina.TelaEditarDisciplina;
 import view.desktop.professor.TelaCadastrarProfessor;
 import view.desktop.professor.TelaDeletarProfessor;
 import view.desktop.turma.TelaCadastrarTurma;
@@ -348,6 +349,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuDisciplina.add(MenuDeletarDisciplina);
 
         MenuEditarDisciplina.setText("Editar disciplina");
+        MenuEditarDisciplina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEditarDisciplinaActionPerformed(evt);
+            }
+        });
         MenuDisciplina.add(MenuEditarDisciplina);
 
         MenuPrincipal.add(MenuDisciplina);
@@ -506,6 +512,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         informacoesAluno.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MenuInformacoesAlunoActionPerformed
+
+    private void MenuEditarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEditarDisciplinaActionPerformed
+        TelaEditarDisciplina editarDisciplina = new TelaEditarDisciplina(this);
+        editarDisciplina.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuEditarDisciplinaActionPerformed
 
     /**
      * @param args the command line arguments
