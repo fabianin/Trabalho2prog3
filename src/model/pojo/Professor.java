@@ -17,9 +17,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 public class Professor extends Pessoa {
 
     private String departamento;
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "professor")
     private List<Turma> turmas;
-    @ManyToMany(mappedBy = "professoresAptos")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "professoresAptos")
     private List<Disciplina> disciplinasApto;
 
     public Professor() {

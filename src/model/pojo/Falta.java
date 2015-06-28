@@ -2,6 +2,7 @@ package model.pojo;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -9,7 +10,7 @@ public class Falta extends GenericEntity {
 
     private long numFaltas;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Aluno aluno;
 
     public Falta() {

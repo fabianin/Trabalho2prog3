@@ -141,7 +141,7 @@ public class TelaInformacoesAluno extends javax.swing.JFrame {
                     .addComponent(InfoIdLabel)
                     .addComponent(InfoIdValue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(InformacoesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(InformacoesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(InfoNomeLabel)
                     .addComponent(InfoNomeValue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -206,7 +206,10 @@ public class TelaInformacoesAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
+        if (this.telaPrincipal != null) {
+            this.telaPrincipal.setInitData();
+            this.telaPrincipal.setVisible(true);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void VisualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarButtonActionPerformed

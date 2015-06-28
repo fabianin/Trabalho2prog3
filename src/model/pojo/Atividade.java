@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,9 +22,9 @@ public class Atividade extends GenericEntity {
     private double valor;
     @Column(nullable = false)
     private String tipo;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Turma turma;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Nota> notas;
 
     public Atividade() {

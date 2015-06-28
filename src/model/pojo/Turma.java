@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,15 +22,15 @@ public class Turma extends GenericEntity {
     private String local;
     private long numVagas;
     private String horario;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Disciplina disciplinas;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Professor professor;
-    @ManyToMany(mappedBy = "turmas")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "turmas")
     private List<Aluno> alunos;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Falta> faltas;
-    @OneToMany(mappedBy = "turma")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "turma")
     private List<Atividade> atividades;
 
     public Turma() {

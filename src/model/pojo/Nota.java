@@ -2,6 +2,7 @@ package model.pojo;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -9,9 +10,9 @@ import javax.persistence.OneToOne;
 public class Nota extends GenericEntity {
 
     private double valorObtido;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Aluno aluno;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Atividade atividade;
 
     public Nota() {
