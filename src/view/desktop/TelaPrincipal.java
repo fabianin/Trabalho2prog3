@@ -72,7 +72,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         try {
-            emf = Persistence.createEntityManagerFactory("Trabalho2prog3PU");
+            emf = Persistence.createEntityManagerFactory("eliasjnior    ");
             alunoDao = new AlunoDaoJpa(emf);
             disciplinaDao = new DisciplinaDaoJpa(emf);
             faltaDao = new FaltaDaoJpa(emf);
