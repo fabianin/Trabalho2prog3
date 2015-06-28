@@ -70,6 +70,7 @@ public class Professor extends Pessoa {
             throw new IllegalArgumentException("Essa turmna já está na lista de turmas desse professor");
         } else {
             this.disciplinasApto.add(d);
+            d.addProfessorApto(this);
         }
     }
 
