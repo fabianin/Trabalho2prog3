@@ -236,7 +236,14 @@ public class TelaInformacoesAluno extends javax.swing.JFrame {
         this.InfoCpfValue.setText("");
         this.InfoNomeValue.setText("");
         DefaultTableModel dtm = (DefaultTableModel) this.InfoTurmasValue.getModel();
-        dtm.setRowCount(0);
+        this.limparComboBox(dtm);
+    }
+    
+    private void limparComboBox(DefaultTableModel dtm) {
+        int tam = dtm.getRowCount();
+        for (int i = 0; i < tam; i++) {
+            dtm.removeRow(i);
+        }
     }
 
     private void carregarPainelAluno(Aluno aluno) {
