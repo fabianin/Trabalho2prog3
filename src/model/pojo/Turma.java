@@ -85,21 +85,21 @@ public class Turma extends GenericEntity {
         if (this.alunos == null) {
             this.alunos = new ArrayList<>();
         }
-        return Collections.unmodifiableList(alunos);
+        return alunos;
     }
 
     public List<Atividade> getAtividades() {
         if (this.atividades == null) {
             this.atividades = new ArrayList<>();
         }
-        return Collections.unmodifiableList(atividades);
+        return atividades;
     }
 
     public List<Falta> getFaltas() {
         if (this.faltas == null) {
             this.faltas = new ArrayList<>();
         }
-        return Collections.unmodifiableList(faltas);
+        return faltas;
     }
 
     public void addAluno(Aluno a) {
@@ -140,8 +140,8 @@ public class Turma extends GenericEntity {
 
     public long getFaltaByAluno(Aluno a) {
         List<Falta> falta = faltas.stream().filter(x -> x.getAluno() == a).collect(Collectors.toList());
-        if (falta == null) {
-            throw new IllegalArgumentException("Aluno não matriculado nessa turma ou com faltas ainda não lançadas.");
+        if (falta.size() == 0) {
+            return -1;
         } else {
             return falta.get(0).getNumFaltas();
         }
@@ -151,7 +151,8 @@ public class Turma extends GenericEntity {
         double media = 0;
         double valorMaximoAtividade = 0;
         for (Atividade x : this.getAtividades()) {
-            media += x.getNotaByAluno(a);
+            Nota nota = x.getNotaByAluno(a);
+            media += nota.getValorObtido();
             valorMaximoAtividade += x.getValor();
         }
         media = media / valorMaximoAtividade;

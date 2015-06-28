@@ -45,7 +45,7 @@ public class Aluno extends Pessoa {
         if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
-        return Collections.unmodifiableList(turmas);
+        return turmas;
     }
 
     @Override

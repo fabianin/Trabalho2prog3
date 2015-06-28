@@ -69,7 +69,7 @@ public class Atividade extends GenericEntity {
         if (this.notas == null) {
             this.notas = new ArrayList<>();
         }
-        return Collections.unmodifiableList(notas);
+        return notas;
     }
 
     public void addNota(Nota n) {
@@ -114,12 +114,12 @@ public class Atividade extends GenericEntity {
         return Objects.equals(this.turma, other.turma);
     }
 
-    public double getNotaByAluno(Aluno a) {
+    public Nota getNotaByAluno(Aluno a) {
         List<Nota> nota = this.getNotas().stream().filter(x -> x.getAluno() == a).collect(Collectors.toList());
         if (nota.size() == 0) {
-            throw new IllegalArgumentException("Aluno não matriculado nessa turma ou com nota ainda não lançada.");
+            return null;
         } else {
-            return nota.get(0).getValorObtido();
+            return nota.get(0);
         }
     }
 

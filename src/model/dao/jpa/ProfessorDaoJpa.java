@@ -127,7 +127,7 @@ public class ProfessorDaoJpa implements Serializable, ProfessorDao {
             }
             for (Disciplina disciplinasAptoOldDisciplina : disciplinasAptoOld) {
                 if (!disciplinasAptoNew.contains(disciplinasAptoOldDisciplina)) {
-                    disciplinasAptoOldDisciplina.getProfessoresAptos().remove(professor);
+                    disciplinasAptoOldDisciplina.removerProfessorApto(professor);
                     disciplinasAptoOldDisciplina = em.merge(disciplinasAptoOldDisciplina);
                 }
             }
@@ -235,5 +235,5 @@ public class ProfessorDaoJpa implements Serializable, ProfessorDao {
             em.close();
         }
     }
-    
+
 }
