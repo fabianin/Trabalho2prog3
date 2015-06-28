@@ -42,6 +42,10 @@ public class Disciplina extends GenericEntity {
         this.professoresAptos.add(p);
     }
 
+    public void removerProfessorApto(Professor p) {
+        this.professoresAptos.remove(p);
+    }
+
     public void addTurmaDisciplina(Turma t) {
         Objects.requireNonNull(t);
         if (this.turmas == null) {
@@ -66,14 +70,14 @@ public class Disciplina extends GenericEntity {
         if (this.turmas == null) {
             this.turmas = new ArrayList<>();
         }
-        return Collections.unmodifiableList(turmas);
+        return this.turmas;
     }
 
     public List<Professor> getProfessoresAptos() {
         if (this.professoresAptos == null) {
             this.professoresAptos = new ArrayList<>();
         }
-        return Collections.unmodifiableList(professoresAptos);
+        return this.professoresAptos;
     }
 
     @Override

@@ -79,6 +79,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar professor"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuEditarProfessorActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListarProfessores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar professores"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListarProfessoresActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -115,6 +126,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listar disciplinas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListarDisciplinasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuVisualizarDisciplina">
               <Properties>
@@ -151,33 +165,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar turma"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuEditarTurmaActionPerformed"/>
+              </Events>
             </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="MenuConsultas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Consultas"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarTurmas">
+            <MenuItem class="javax.swing.JMenuItem" name="MenuListarTurmas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar turmas"/>
+                <Property name="text" type="java.lang.String" value="Listar turmas"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarSituacao">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar situa&#xe7;&#xe3;o de aluno"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarTurmasOferecidas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar turmas oferecidas"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarDisciplinasLecionadas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar disciplinas lecionadas"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuListarTurmasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -190,16 +188,47 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lan&#xe7;ar nota"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuLancarNotaActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuDeletarNota">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuAtividade">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atividade"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuCadastrarAtividade">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Deletar nota"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar atividade"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuCadastrarAtividadeActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuEditarNota">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuConsultas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consultas"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarTurmas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar nota"/>
+                <Property name="text" type="java.lang.String" value="Consultar turmas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuConsultarTurmasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuConsultarTurmasOferecidas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar turmas oferecidas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuConsultarTurmasOferecidasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -249,7 +278,7 @@
               <Component id="PanelEstatisticas" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="PainelInstrucoes" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="491" max="32767" attributes="0"/>
+              <EmptySpace pref="493" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

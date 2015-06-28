@@ -5,7 +5,10 @@
  */
 package view.desktop;
 
+import view.desktop.disciplina.TelaListarDisciplinas;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
@@ -24,27 +27,36 @@ import model.dao.jpa.FaltaDaoJpa;
 import model.dao.jpa.NotaDaoJpa;
 import model.dao.jpa.ProfessorDaoJpa;
 import model.dao.jpa.TurmaDaoJpa;
+import model.dao.jpa.expections.NonexistentEntityException;
 import model.pojo.Turma;
 import view.desktop.aluno.TelaCadastrarAluno;
 import view.desktop.aluno.TelaDeletarAluno;
 import view.desktop.aluno.TelaEditarAluno;
 import view.desktop.aluno.TelaInformacoesAluno;
 import view.desktop.aluno.TelaListarAlunos;
+import view.desktop.aluno.nota.TelaLancarNota;
+import view.desktop.atividade.TelaCadastrarAtividade;
+import view.desktop.consultas.TelaConsultarTurma;
+import view.desktop.consultas.TelaConsultarTurmasOferecidas;
 import view.desktop.disciplina.TelaCadastrarDisciplina;
 import view.desktop.disciplina.TelaDeletarDisciplina;
 import view.desktop.disciplina.TelaEditarDisciplina;
 import view.desktop.disciplina.TelaInformacoesDisciplina;
 import view.desktop.professor.TelaCadastrarProfessor;
 import view.desktop.professor.TelaDeletarProfessor;
+import view.desktop.professor.TelaEditarProfessor;
+import view.desktop.professor.TelaListarProfessores;
 import view.desktop.turma.TelaCadastrarTurma;
 import view.desktop.turma.TelaDeletarTurma;
+import view.desktop.turma.TelaEditarTurma;
+import view.desktop.turma.TelaListarTurmas;
 
 /**
  *
  * @author Elias Júnior
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     public static EntityManagerFactory emf;
     public static AlunoDao alunoDao;
     public static DisciplinaDao disciplinaDao;
@@ -52,6 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static NotaDao notaDao;
     public static ProfessorDao professorDao;
     public static TurmaDao turmaDao;
+    public static AtividadeDao atividadeDao;
 
     /**
      * Creates new form TelaPrincipal
@@ -66,16 +79,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
             notaDao = new NotaDaoJpa(emf);
             professorDao = new ProfessorDaoJpa(emf);
             turmaDao = new TurmaDaoJpa(emf);
+            atividadeDao = new AtividadeDaoJpa(emf);
             setInitData();
         } catch (Exception ex) {
             this.disableEverything(ex.getMessage());
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void disableEverything() {
         this.disableEverything("Erro desconhecido.");
     }
-    
+
     public void disableEverything(String msg) {
         this.setVisible(false);
         JOptionPane.showMessageDialog(this, msg);
@@ -127,6 +142,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCadastrarProfessor = new javax.swing.JMenuItem();
         MenuDeletarProfessor = new javax.swing.JMenuItem();
         MenuEditarProfessor = new javax.swing.JMenuItem();
+        MenuListarProfessores = new javax.swing.JMenuItem();
         MenuDisciplina = new javax.swing.JMenu();
         MenuCadastrarDisciplina = new javax.swing.JMenuItem();
         MenuDeletarDisciplina = new javax.swing.JMenuItem();
@@ -137,15 +153,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuCadastrarTurma = new javax.swing.JMenuItem();
         MenuDeletarTurma = new javax.swing.JMenuItem();
         MenuEditarTurma = new javax.swing.JMenuItem();
-        MenuConsultas = new javax.swing.JMenu();
-        MenuConsultarTurmas = new javax.swing.JMenuItem();
-        MenuConsultarSituacao = new javax.swing.JMenuItem();
-        MenuConsultarTurmasOferecidas = new javax.swing.JMenuItem();
-        MenuConsultarDisciplinasLecionadas = new javax.swing.JMenuItem();
+        MenuListarTurmas = new javax.swing.JMenuItem();
         MenuNota = new javax.swing.JMenu();
         MenuLancarNota = new javax.swing.JMenuItem();
-        MenuDeletarNota = new javax.swing.JMenuItem();
-        MenuEditarNota = new javax.swing.JMenuItem();
+        MenuAtividade = new javax.swing.JMenu();
+        MenuCadastrarAtividade = new javax.swing.JMenuItem();
+        MenuConsultas = new javax.swing.JMenu();
+        MenuConsultarTurmas = new javax.swing.JMenuItem();
+        MenuConsultarTurmasOferecidas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -329,7 +344,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuProfessor.add(MenuDeletarProfessor);
 
         MenuEditarProfessor.setText("Editar professor");
+        MenuEditarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEditarProfessorActionPerformed(evt);
+            }
+        });
         MenuProfessor.add(MenuEditarProfessor);
+
+        MenuListarProfessores.setText("Listar professores");
+        MenuListarProfessores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListarProfessoresActionPerformed(evt);
+            }
+        });
+        MenuProfessor.add(MenuListarProfessores);
 
         MenuPrincipal.add(MenuProfessor);
 
@@ -360,6 +388,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuDisciplina.add(MenuEditarDisciplina);
 
         MenuListarDisciplinas.setText("Listar disciplinas");
+        MenuListarDisciplinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListarDisciplinasActionPerformed(evt);
+            }
+        });
         MenuDisciplina.add(MenuListarDisciplinas);
 
         MenuVisualizarDisciplina.setText("Informações da disciplina");
@@ -391,38 +424,66 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuTurma.add(MenuDeletarTurma);
 
         MenuEditarTurma.setText("Editar turma");
+        MenuEditarTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEditarTurmaActionPerformed(evt);
+            }
+        });
         MenuTurma.add(MenuEditarTurma);
 
+        MenuListarTurmas.setText("Listar turmas");
+        MenuListarTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListarTurmasActionPerformed(evt);
+            }
+        });
+        MenuTurma.add(MenuListarTurmas);
+
         MenuPrincipal.add(MenuTurma);
-
-        MenuConsultas.setText("Consultas");
-
-        MenuConsultarTurmas.setText("Consultar turmas");
-        MenuConsultas.add(MenuConsultarTurmas);
-
-        MenuConsultarSituacao.setText("Consultar situação de aluno");
-        MenuConsultas.add(MenuConsultarSituacao);
-
-        MenuConsultarTurmasOferecidas.setText("Consultar turmas oferecidas");
-        MenuConsultas.add(MenuConsultarTurmasOferecidas);
-
-        MenuConsultarDisciplinasLecionadas.setText("Consultar disciplinas lecionadas");
-        MenuConsultas.add(MenuConsultarDisciplinasLecionadas);
-
-        MenuPrincipal.add(MenuConsultas);
 
         MenuNota.setText("Nota");
 
         MenuLancarNota.setText("Lançar nota");
+        MenuLancarNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuLancarNotaActionPerformed(evt);
+            }
+        });
         MenuNota.add(MenuLancarNota);
 
-        MenuDeletarNota.setText("Deletar nota");
-        MenuNota.add(MenuDeletarNota);
-
-        MenuEditarNota.setText("Editar nota");
-        MenuNota.add(MenuEditarNota);
-
         MenuPrincipal.add(MenuNota);
+
+        MenuAtividade.setText("Atividade");
+
+        MenuCadastrarAtividade.setText("Cadastrar atividade");
+        MenuCadastrarAtividade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarAtividadeActionPerformed(evt);
+            }
+        });
+        MenuAtividade.add(MenuCadastrarAtividade);
+
+        MenuPrincipal.add(MenuAtividade);
+
+        MenuConsultas.setText("Consultas");
+
+        MenuConsultarTurmas.setText("Consultar turmas");
+        MenuConsultarTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuConsultarTurmasActionPerformed(evt);
+            }
+        });
+        MenuConsultas.add(MenuConsultarTurmas);
+
+        MenuConsultarTurmasOferecidas.setText("Consultar turmas oferecidas");
+        MenuConsultarTurmasOferecidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuConsultarTurmasOferecidasActionPerformed(evt);
+            }
+        });
+        MenuConsultas.add(MenuConsultarTurmasOferecidas);
+
+        MenuPrincipal.add(MenuConsultas);
 
         setJMenuBar(MenuPrincipal);
 
@@ -444,7 +505,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(PanelEstatisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addContainerGap(493, Short.MAX_VALUE))
         );
 
         pack();
@@ -539,6 +600,60 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MenuVisualizarDisciplinaActionPerformed
 
+    private void MenuListarDisciplinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarDisciplinasActionPerformed
+        TelaListarDisciplinas listarDisciplinas = new TelaListarDisciplinas(this);
+        listarDisciplinas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuListarDisciplinasActionPerformed
+
+    private void MenuEditarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEditarProfessorActionPerformed
+        TelaEditarProfessor editarProfessor = new TelaEditarProfessor(this);
+        editarProfessor.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuEditarProfessorActionPerformed
+
+    private void MenuListarProfessoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarProfessoresActionPerformed
+        TelaListarProfessores listarProfessores = new TelaListarProfessores(this);
+        listarProfessores.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuListarProfessoresActionPerformed
+
+    private void MenuEditarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEditarTurmaActionPerformed
+        TelaEditarTurma editarTurma = new TelaEditarTurma(this);
+        editarTurma.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuEditarTurmaActionPerformed
+
+    private void MenuListarTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarTurmasActionPerformed
+        TelaListarTurmas listarTurmas = new TelaListarTurmas(this);
+        listarTurmas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuListarTurmasActionPerformed
+
+    private void MenuLancarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLancarNotaActionPerformed
+        TelaLancarNota lancarNota = new TelaLancarNota(this);
+        lancarNota.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuLancarNotaActionPerformed
+
+    private void MenuCadastrarAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarAtividadeActionPerformed
+        TelaCadastrarAtividade cadastrarAtividade = new TelaCadastrarAtividade(this);
+        cadastrarAtividade.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuCadastrarAtividadeActionPerformed
+
+    private void MenuConsultarTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuConsultarTurmasActionPerformed
+        TelaConsultarTurma consultarTurma = new TelaConsultarTurma(this);
+        consultarTurma.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuConsultarTurmasActionPerformed
+
+    private void MenuConsultarTurmasOferecidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuConsultarTurmasOferecidasActionPerformed
+        TelaConsultarTurmasOferecidas turmasOferecidas = new TelaConsultarTurmasOferecidas(this);
+        turmasOferecidas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MenuConsultarTurmasOferecidasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -580,30 +695,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel DisciplinasCadastradasLabel;
     private javax.swing.JLabel DisciplinasCadastradasValue;
     private javax.swing.JMenu MenuAluno;
+    private javax.swing.JMenu MenuAtividade;
     private javax.swing.JMenuItem MenuCadastrarAluno;
+    private javax.swing.JMenuItem MenuCadastrarAtividade;
     private javax.swing.JMenuItem MenuCadastrarDisciplina;
     private javax.swing.JMenuItem MenuCadastrarProfessor;
     private javax.swing.JMenuItem MenuCadastrarTurma;
-    private javax.swing.JMenuItem MenuConsultarDisciplinasLecionadas;
-    private javax.swing.JMenuItem MenuConsultarSituacao;
     private javax.swing.JMenuItem MenuConsultarTurmas;
     private javax.swing.JMenuItem MenuConsultarTurmasOferecidas;
     private javax.swing.JMenu MenuConsultas;
     private javax.swing.JMenuItem MenuDeletarAluno;
     private javax.swing.JMenuItem MenuDeletarDisciplina;
-    private javax.swing.JMenuItem MenuDeletarNota;
     private javax.swing.JMenuItem MenuDeletarProfessor;
     private javax.swing.JMenuItem MenuDeletarTurma;
     private javax.swing.JMenu MenuDisciplina;
     private javax.swing.JMenuItem MenuEditarAluno;
     private javax.swing.JMenuItem MenuEditarDisciplina;
-    private javax.swing.JMenuItem MenuEditarNota;
     private javax.swing.JMenuItem MenuEditarProfessor;
     private javax.swing.JMenuItem MenuEditarTurma;
     private javax.swing.JMenuItem MenuInformacoesAluno;
     private javax.swing.JMenuItem MenuLancarNota;
     private javax.swing.JMenuItem MenuListarAlunos;
     private javax.swing.JMenuItem MenuListarDisciplinas;
+    private javax.swing.JMenuItem MenuListarProfessores;
+    private javax.swing.JMenuItem MenuListarTurmas;
     private javax.swing.JMenu MenuNota;
     private javax.swing.JMenuBar MenuPrincipal;
     private javax.swing.JMenu MenuProfessor;

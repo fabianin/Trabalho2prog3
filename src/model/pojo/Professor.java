@@ -62,7 +62,6 @@ public class Professor extends Pessoa {
     }
     
     public void addDisciplinaApto(Disciplina d) {
-        Objects.requireNonNull(d);
         if (disciplinasApto == null) {
             disciplinasApto = new ArrayList<>();
         }
@@ -72,6 +71,11 @@ public class Professor extends Pessoa {
             this.disciplinasApto.add(d);
             d.addProfessorApto(this);
         }
+    }
+    
+    public void removerDisciplinaApto(Disciplina d) {
+        boolean status = this.disciplinasApto.remove(d);
+        d.removerProfessorApto(this);
     }
     
     public void setTurmas(List<Turma> arrayList) {
