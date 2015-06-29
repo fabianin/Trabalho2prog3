@@ -3,6 +3,7 @@ package model.pojo;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -12,17 +13,29 @@ public class Falta extends GenericEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Aluno aluno;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Turma turma;
 
     public Falta() {
     }
 
-    public Falta(long numFaltas, Aluno aluno) {
+    public Falta(long numFaltas, Aluno aluno, Turma turma) {
         Objects.requireNonNull(aluno);
         if (numFaltas < 0) {
             throw new IllegalArgumentException("O numero de faltas não pode ser negativo");
         }
         this.numFaltas = numFaltas;
         this.aluno = aluno;
+        this.turma = turma;
+        turma.addFalta(this);
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public long getNumFaltas() {

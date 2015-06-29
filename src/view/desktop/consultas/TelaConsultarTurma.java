@@ -1,11 +1,16 @@
 package view.desktop.consultas;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.pojo.Aluno;
+import model.pojo.Atividade;
 import model.pojo.Disciplina;
+import model.pojo.Falta;
+import model.pojo.Nota;
 import model.pojo.Turma;
 import view.desktop.TelaPrincipal;
 
@@ -199,12 +204,14 @@ public class TelaConsultarTurma extends javax.swing.JFrame {
         dtm.setColumnIdentifiers(new Object[]{"Turma ID", "Aluno", "Nota", "Falta"});
         turmas.forEach((Turma t) -> {
             List<Aluno> alunos = t.getAlunos();
+            List<Atividade> atividades = t.getAtividades();
             alunos.forEach((Aluno a) -> {
+                List<Falta> faltas = TelaPrincipal.faltaDao.findFaltaEntities().stream().filter(f -> f.getTurma().equals(t)).collect(Collectors.toList());
                 dtm.addRow(new Object[]{
                     t.getId(),
                     a.getNome(),
                     t.getMediaTurma(a),
-                    t.getFaltaByAluno(a)
+                    (faltas.size() > 0) ? faltas.get(0).getNumFaltas() : -1
                 });
             });
         });

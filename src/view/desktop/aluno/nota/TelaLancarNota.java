@@ -212,8 +212,8 @@ public class TelaLancarNota extends javax.swing.JFrame {
                     if (nota != null) {
                         JOptionPane.showMessageDialog(this, "A nota já foi lançada.");
                     } else {
-                        nota = new Nota(valorObtido, this.aluno);
-                        //TelaPrincipal.notaDao.create(nota);
+                        nota = new Nota(valorObtido, this.aluno, atividade);
+                        TelaPrincipal.notaDao.create(nota);
                         atividade.addNota(nota);
                         TelaPrincipal.atividadeDao.edit(atividade);
                         JOptionPane.showMessageDialog(this, "Nota lançada com sucesso.");
